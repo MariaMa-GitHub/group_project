@@ -4,6 +4,7 @@
  *
  * @author (your name)
  * @version (a version number or a date)
+ * I don't know if i did it right someone look it over lmao
  */
 public class Media
 {
