@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class LinkList {
@@ -26,7 +25,7 @@ public class LinkList {
         return message;
     }
     
-    public Object get(int index) {
+    public Person get(int index) {
         Node node = head;
         for (int i = 1; i < index; i++) {
             node = node.next;
@@ -34,14 +33,14 @@ public class LinkList {
         return node.cargo;
     }
     
-    public Object removeFirst() {
-        Object object = head.cargo;
+    public Person removeFirst() {
+        Person person = head.cargo;
         this.length--;
         head = head.next;
-        return object;
+        return person;
     }
     
-    public void set(int index, Object cargo) {
+    public void set(int index, Person cargo) {
         Node node = head;
         for (int i = 1; i < index; i++) {
             node = node.next;
@@ -49,7 +48,7 @@ public class LinkList {
         node.cargo = cargo;
     }
     
-    public void add(int index, Object cargo) { 
+    public void add(int index, Person cargo) { 
         Node node = head;
         if ((index < 1) || (index > length + 1)) {
             System.out.print("The link list does not have position " + index + ". Please enter another number: ");
@@ -69,7 +68,7 @@ public class LinkList {
         
     }
     
-    public void addLast(Object cargo) { 
+    public void addLast(Person cargo) { 
         if (head != null) {
             Node node = head;
             while (node.next != null) {
@@ -85,8 +84,8 @@ public class LinkList {
     
     public void reverse() { 
         for (int i = 1; i <= length / 2; i++) {
-                Object cargo1 = get(i);
-                Object cargo2 = get(length + 1 - i);
+                Person cargo1 = get(i);
+                Person cargo2 = get(length + 1 - i);
                 set(i, cargo2);
                 set(length + 1 - i, cargo1);
         }

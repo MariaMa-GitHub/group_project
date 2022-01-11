@@ -1,15 +1,14 @@
-
 public class Node {
     
-    Object cargo;
+    Person cargo;
     Node next;
     
     public Node() {
-        this.cargo = new Object();
+        this.cargo = new Person();
         this.next = null;
     }
     
-    public Node(Object c, Node n) {
+    public Node(Person c, Node n) {
         this.cargo = c;
         this.next = n;
     }

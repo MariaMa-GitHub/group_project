@@ -1,4 +1,3 @@
-
 public class Queue {
     
     LinkList q;
@@ -13,13 +12,13 @@ public class Queue {
     public boolean isEmpty() {
         return q.head == null;
     }
-    public void enqueue(Object cargo) {
+    public void enQueue(Person cargo) {
         q.addLast(cargo);
     }
-    public Object dequeue() {
+    public Person deQueue() {
         return q.removeFirst();
     }
-    public Object peek() {
+    public Person peek() {
         return q.get(1);
     }
 
