@@ -31,5 +31,19 @@ public class Media
         this.hold = hold;
     }
     
-    
+    public String printTitle(){
+        return this.title;
+    }
+    public String toString(){
+        String onHold = "";
+        for(String message : this.hold){
+            onHold += message.toString() + "\n";
+        }
+        
+        String s = "Title: " + this.title + "\nPublisher: " 
+        + this.publisher + "\nGenre: " + this.genre + "\nAvailability: " 
+        + this.availability + "\nPeople on hold: " + onHold + "\n";
+        
+        return s;
+    }
 }
