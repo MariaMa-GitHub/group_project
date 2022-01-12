@@ -157,7 +157,37 @@ public class Library
 			String response = sc.nextLine();
 			
 			if (response.toLowerCase().equals("y")) {
-				// proceed
+				
+				Person person;
+				
+				System.out.print("\nDo you have a library card? (y/n) ");
+				
+				response = sc.nextLine();
+				
+				if (response.toLowerCase().equals("y")) {
+					
+					System.out.print("\nPlease enter you card number: ");
+					
+					try {
+						cardNum = sc.nextInt();
+						sc.nextLine();
+						person = findPerson(cardNum);
+						
+						if (person == null) {
+							person = createPerson()
+						}
+					}
+					catch (Exception as e) {
+						person = createPerson()
+					}		
+					
+				else {
+					
+					person = createPerson()
+				}
+				
+				// then assign card number to person
+					
 			}
 			else {
 				break;	
@@ -165,5 +195,15 @@ public class Library
 			
 		}
 
+	}
+	public static Person createPerson() {
+		System.out.print("\nCreate a library card:");
+		System.out.print("\nWhat is your name? ");
+		String name = sc.nextLine();
+		System.out.print("\nHow old are you? ");
+		short age = sc.nextShort();
+		sc.nextLine();
+		
+		return new Person(name, age);
 	}
 }
