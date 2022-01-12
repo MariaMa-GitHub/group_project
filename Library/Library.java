@@ -177,7 +177,7 @@ public class Library
 							person = createPerson()
 						}
 					}
-					catch (Exception as e) {
+					catch (Exception e) {
 						person = createPerson()
 					}		
 					
