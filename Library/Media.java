@@ -42,7 +42,7 @@ public class Media
         // CHANGE FROM MARIA
         for (Node current = this.hold.q.head; current != null; current = current.next) {
             //adding the people's names and their card numbers to print it out later
-            onHold += current.cargo.name + " (" + current.cargo.cardNum + ")"\n;
+            onHold += current.cargo.name + " (" + current.cargo.cardNum + ")\n";
         }
         
        
