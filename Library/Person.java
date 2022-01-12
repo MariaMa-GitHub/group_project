@@ -32,18 +32,9 @@ public class Person {
     public Person(String name, short age) {
         this.name = name;
         this.age = age;
-        this.cardNum = 0;
+        this.cardNum = Libray.total_users;
         this.possessions = new ArrayList<Media>();
     }
-    
-    // (***** SEE ISSUE IN GITHUB *****)
-    // register at a library by getting a library card 
-    // public void getLibraryCard(Library library) {
-        
-        // library.people.add(this);
-        // cardNum = library.people.size();
-        
-    // }
     
     // borrow one single item
     public void borrowItem(Media item) {
