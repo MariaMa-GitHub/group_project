@@ -1,12 +1,3 @@
-
-/**
- * Person Class: a person that can borrow and return library items by using a library card 
- *
- * @author Maria Ma
- * @version January 11, 2022
- */
-
-import java.util.Scanner;
 import java.util.ArrayList;
 
 // person class
@@ -32,7 +23,7 @@ public class Person {
     public Person(String name, short age) {
         this.name = name;
         this.age = age;
-        this.cardNum = Libray.total_users;
+        this.cardNum = Library.totalUsers++;
         this.possessions = new ArrayList<Media>();
     }
     
@@ -84,21 +75,4 @@ public class Person {
         return String.format("Information about %s:\n\n- Age: %d\n- Library Card Number: %d\n- Possessions: %s", this.name,
         this.age, this.cardNum, getPossessionList());
     }
-
-    // TEST METHOD
-    public static void main(String[] args) {
-        
-        ArrayList<Media> possessions = new ArrayList<Media>();
-        for (int i = 1; i <= 3; i++) {
-            possessions.add(new Media(i));
-        }
-        
-        Person person = new Person("Maria", (short)17);
-        
-        person.borrowItem(possessions);
-        
-        System.out.println(person.getPossessionList());
-        
-    }
-    
 }

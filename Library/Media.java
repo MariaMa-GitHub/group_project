@@ -1,11 +1,3 @@
-
-/**
- * Super class
- *
- * @author Max Wang
- * @version January 12, 2022
- * I don't know if i did it right someone look it over lmao
- */
 public class Media
 {
     //declaring variables

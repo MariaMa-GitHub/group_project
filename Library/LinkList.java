@@ -1,19 +1,12 @@
-/**
- * LinkList class with toString and helper methods
- *
- * @author Max Wang
- * @version January 12, 2022
- * I don't know if i did it right someone look it over lmao
- */
 import java.util.Scanner;
 
 public class LinkList {
     
     Node head;
     int length;
-    //initializing scanner
+    
     Scanner sc = new Scanner(System.in);
-    //default constructor
+    
     public LinkList() {
         this.head = null;
         this.length = 0;
@@ -23,7 +16,7 @@ public class LinkList {
         this.head = h;
         this.length = l;
     }
-    //toString method
+    
     public String toString() {
         String message = "";
         for (Node n = head; n != null; n=n.next) {
@@ -31,7 +24,7 @@ public class LinkList {
         }
         return message;
     }
-    //get a person from a certain index
+    
     public Person get(int index) {
         Node node = head;
         for (int i = 1; i < index; i++) {
@@ -39,14 +32,14 @@ public class LinkList {
         }
         return node.cargo;
     }
-    //remove the first person
+    
     public Person removeFirst() {
         Person person = head.cargo;
         this.length--;
         head = head.next;
         return person;
     }
-    //set a person at a specific place
+    
     public void set(int index, Person cargo) {
         Node node = head;
         for (int i = 1; i < index; i++) {
@@ -54,7 +47,7 @@ public class LinkList {
         }
         node.cargo = cargo;
     }
-    //add a person at a specific place
+    
     public void add(int index, Person cargo) { 
         Node node = head;
         if ((index < 1) || (index > length + 1)) {
@@ -74,7 +67,7 @@ public class LinkList {
         }
         
     }
-    //adding a person to the end 
+    
     public void addLast(Person cargo) { 
         if (head != null) {
             Node node = head;
@@ -88,7 +81,7 @@ public class LinkList {
         }
         this.length++;
     }
-    //reverse the list
+    
     public void reverse() { 
         for (int i = 1; i <= length / 2; i++) {
                 Person cargo1 = get(i);
@@ -97,13 +90,13 @@ public class LinkList {
                 set(length + 1 - i, cargo1);
         }
     }
-    //append method
+    
     public void append(LinkList list) {
         for (Node n = list.head; n != null; n=n.next) {
             addLast(n.cargo);
         }
     }
-    //checking the length
+    
     public boolean checkLength() {
         int count = 0;
         for (Node n = head; n != null; n=n.next) {
@@ -116,5 +109,4 @@ public class LinkList {
             return false;
         }
     }
-
 }
