@@ -16,7 +16,7 @@ public class Library
 	ArrayList<Media> collection;
 	String name;
 	String address;
-	
+	static int totalUsers = 0;
 	//open Scanner
 	Scanner input = new Scanner(System.in);
 	
@@ -196,14 +196,17 @@ public class Library
 		}
 
 	}
-	public static Person createPerson() {
+		
+	public static Person createPerson() 
+	{
 		System.out.print("\nCreate a library card:");
-		System.out.print("\nWhat is your name? ");
+		System.out.print("\nWhat is your name?");
 		String name = sc.nextLine();
 		System.out.print("\nHow old are you? ");
 		short age = sc.nextShort();
 		sc.nextLine();
 		
-		return new Person(name, age);
+		totalUsers++;
+		return new Person(name, age, cardNum);
 	}
 }
