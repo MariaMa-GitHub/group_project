@@ -1,9 +1,3 @@
-/**
- * Novel subclass
- *
- * @Bob Yang
- * @Jan 11, 2022
- */
 public class Novel extends Media
 {
     String author;
