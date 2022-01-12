@@ -1,9 +1,3 @@
-/**
- * Audiobooks subclass
- *
- * @Bob Yang
- * @Jan 11, 2022
- */
 public class Audiobooks extends Media
 {
     String author;
