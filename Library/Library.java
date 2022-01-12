@@ -134,7 +134,25 @@ public class Library
 	
 	public static void main(String[] args)
 	{
+		 
+		Scanner sc = new Scanner(System.in);
+		
 		Library JMPS = new Library("John McCrae Public Library", "123 Internet Road");
+		
+		while (true) {
+			
+			System.out.print("Would you like to borrow/return items to a library? (y/n) ");
+			
+			String response = sc.nextLine();
+			
+			if (response.toLowerCase().equals("y")) {
+				// proceed
+			}
+			else {
+				break;	
+			}
+			
+		}
 
 	}
 }
