@@ -36,6 +36,12 @@ public class Media
     }
     public String toString(){
         String onHold = "";
+  
+        // CHANGE FROM MARIA
+        for (Node current = this.hold.q; current != null; current = current.next) {
+            //code   
+        }
+        
         for(String message : this.hold){
             onHold += message.toString() + "\n";
         }
