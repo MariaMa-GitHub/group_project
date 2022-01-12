@@ -8,9 +8,9 @@ public class Audiobooks extends Media
         this.author = "TBD";
         this.length = 0;
     }
-    public Audiobooks(String t, String pub, String g, boolean a, Queue hold, String a, int l){
+    public Audiobooks(String t, String pub, String g, boolean a, Queue hold, String author, int l){
         super(t, pub, g, a, hold);
-        this.author = a;
+        this.author = author;
         this.length = l;
     }
     public String toString(){
