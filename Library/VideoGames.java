@@ -13,6 +13,6 @@ public class VideoGames extends Media
         this.compatability = c;
     }
     public String toString(){
-       return super().toString + String.format("Rating: %s\ncompatability: %s", this.rating, this.compatability);
+       return super.toString() + String.format("Rating: %s\ncompatability: %s", this.rating, this.compatability);
     }
 }
