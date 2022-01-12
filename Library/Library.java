@@ -156,7 +156,7 @@ public class Library
 		while (true) 
 		{
 			
-			System.out.print("Would you like to borrow/return items to a library? (y/n) ");
+			System.out.print("\nWould you like to borrow/return items to a library? (y/n) ");
 			
 			String response = sc.nextLine();
 			
@@ -212,10 +212,10 @@ public class Library
 	{
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("\nCreate a library card:");
+		System.out.println("\nCreate a library card:");
 		System.out.print("\nWhat is your name? ");
 		String name = sc.nextLine();
-		System.out.print("\nHow old are you? ");
+		System.out.print("How old are you? ");
 		short age = sc.nextShort();
 		sc.nextLine();
 		
