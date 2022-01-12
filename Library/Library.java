@@ -131,13 +131,24 @@ public class Library
 		//and finally, edit Person's cart
 		p.possessions.remove(m);
 	}
+	public Person findPerson(int target)
+	{
+		for (int i = 0; i < this.people.size(); i++)
+		{
+			if (this.people.get(i).cardNum == target)
+			{
+				return this.people.get(i);
+			}
+		}
+		return null; //no match found
+	}
 	
 	public static void main(String[] args)
 	{
 		 
 		Scanner sc = new Scanner(System.in);
 		
-		Library JMPS = new Library("John McCrae Public Library", "123 Internet Road");
+		Library JMPL = new Library("John McCrae Public Library", "123 Internet Road");
 		
 		while (true) {
 			
