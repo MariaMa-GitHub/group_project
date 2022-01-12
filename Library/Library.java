@@ -16,7 +16,7 @@ public class Library
 	ArrayList<Media> collection;
 	String name;
 	String address;
-	static int totalUsers = 0;
+	
 	//open Scanner
 	Scanner input = new Scanner(System.in);
 	
@@ -131,6 +131,8 @@ public class Library
 		//and finally, edit Person's cart
 		p.possessions.remove(m);
 	}
+	
+
 	public Person findPerson(int target)
 	{
 		for (int i = 0; i < this.people.size(); i++)
@@ -150,13 +152,15 @@ public class Library
 		
 		Library JMPL = new Library("John McCrae Public Library", "123 Internet Road");
 		
-		while (true) {
+		while (true) 
+		{
 			
 			System.out.print("Would you like to borrow/return items to a library? (y/n) ");
 			
 			String response = sc.nextLine();
 			
-			if (response.toLowerCase().equals("y")) {
+			if (response.toLowerCase().equals("y")) 
+			{
 				
 				Person person;
 				
@@ -164,41 +168,49 @@ public class Library
 				
 				response = sc.nextLine();
 				
-				if (response.toLowerCase().equals("y")) {
+				if (response.toLowerCase().equals("y")) 
+				{
 					
 					System.out.print("\nPlease enter you card number: ");
+					int cardNum;
 					
-					try {
+					try 
+					{
 						cardNum = sc.nextInt();
 						sc.nextLine();
-						person = findPerson(cardNum);
+						person = JMPL.findPerson(cardNum);
 						
 						if (person == null) {
-							person = createPerson()
+							person = createPerson();
 						}
 					}
-					catch (Exception e) {
-						person = createPerson()
-					}		
+					catch (Exception e) 
+					{
+						person = createPerson();
+					}	
+				}
 					
 				else {
 					
-					person = createPerson()
+					person = createPerson();
 				}
 				
 				// then assign card number to person
 					
 			}
-			else {
-				break;	
+			else 
+			{
+				sc.close();
+				break;
 			}
-			
 		}
-
+		sc.close();
 	}
 		
 	public static Person createPerson() 
 	{
+		Scanner sc = new Scanner(System.in);
+		
 		System.out.print("\nCreate a library card:");
 		System.out.print("\nWhat is your name?");
 		String name = sc.nextLine();
@@ -206,7 +218,7 @@ public class Library
 		short age = sc.nextShort();
 		sc.nextLine();
 		
-		this.totalUsers++;
+		sc.close();
 		return new Person(name, age);
 	}
 }
