@@ -41,7 +41,7 @@ public class Library
 		//just print all the titles of all the items
 		for (Media m : this.collection)
 		{
-			System.out.println(this.collection.get(i).title);
+			System.out.println(m.title);
 		}
 	}
 	public void checkOut(Media m, Person p)
