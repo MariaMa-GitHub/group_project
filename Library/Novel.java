@@ -8,9 +8,9 @@ public class Novel extends Media
         this.author = "TBD";
         this.pageCount = 0;
     }
-    public Novel(String t, String pub, String g, boolean a, Queue hold, String a, int p){
+    public Novel(String t, String pub, String g, boolean a, Queue hold, String author, int p){
         super(t, pub, g, a, hold);
-        this.author = a;
+        this.author = author;
         this.pageCount = p;
     }
     public String toString(){
