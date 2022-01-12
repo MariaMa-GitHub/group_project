@@ -39,7 +39,7 @@ public class Library
 	public void printCollection()
 	{
 		//just print all the titles of all the items
-		for (int i = 0; i < this.collection.size(); i++)
+		for (Media m : this.collection)
 		{
 			System.out.println(this.collection.get(i).title);
 		}
