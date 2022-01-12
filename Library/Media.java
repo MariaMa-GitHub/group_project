@@ -38,13 +38,12 @@ public class Media
         String onHold = "";
   
         // CHANGE FROM MARIA
-        for (Node current = this.hold.q; current != null; current = current.next) {
-            //code   
+        for (Node current = this.hold.q.head; current != null; current = current.next) {
+            
+            onHold += current.cargo.name + " (" + current.cargo.cardNum + ")"\n;
         }
         
-        for(String message : this.hold){
-            onHold += message.toString() + "\n";
-        }
+       
         
         String s = "Title: " + this.title + "\nPublisher: " 
         + this.publisher + "\nGenre: " + this.genre + "\nAvailability: " 
