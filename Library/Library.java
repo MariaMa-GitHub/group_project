@@ -206,7 +206,7 @@ public class Library
 		short age = sc.nextShort();
 		sc.nextLine();
 		
-		totalUsers++;
-		return new Person(name, age, cardNum);
+		this.totalUsers++;
+		return new Person(name, age);
 	}
 }
