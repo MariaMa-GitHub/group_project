@@ -14,6 +14,6 @@ public class Novel extends Media
         this.pageCount = p;
     }
     public String toString(){
-       return super().toString + String.format("Author: %s\nPage count: %d", this.author, this.pageCount);
+       return super.toString() + String.format("Author: %s\nPage count: %d", this.author, this.pageCount);
     }
 }
