@@ -145,6 +145,19 @@ public class Library
 		}
 		return null; //no match found
 	}
+	public static Person createPerson() 
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("\nCreate a library card:");
+		System.out.print("\nWhat is your name? ");
+		String name = sc.nextLine();
+		System.out.print("How old are you? ");
+		short age = sc.nextShort();
+		sc.nextLine();
+		
+		return new Person(name, age);
+	}
 	
 	public static void main(String[] args)
 	{
@@ -201,25 +214,8 @@ public class Library
 			}
 			else 
 			{
-				sc.close();
 				break;
 			}
 		}
-		sc.close();
-	}
-		
-	public static Person createPerson() 
-	{
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println("\nCreate a library card:");
-		System.out.print("\nWhat is your name? ");
-		String name = sc.nextLine();
-		System.out.print("How old are you? ");
-		short age = sc.nextShort();
-		sc.nextLine();
-		
-		sc.close();
-		return new Person(name, age);
 	}
 }
