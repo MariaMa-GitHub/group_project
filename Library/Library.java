@@ -89,22 +89,30 @@ public class Library
 		{
 			//tell user Media is not available, then ask if they want to put on hold
 			//ask user if they want to check it out
-			do
+			//HOWEVER: if user already has the item checked out, they CANNOT put it on hold
+			if (findPosession(m.title)) //if the user already has current item
 			{
-				System.out.printf("Sorry, %s is not available, would you like to put this item on hold? (y/n)\n", m.title);
-				response = input.nextLine();
+				System.out.printf("Sorry, you already have %s checked out. You cannot currently put this on hold.\n", m.title);
 			}
-			while (response.equals("y") && response.equals("n"));
+			else
+			{
+				do
+				{
+					System.out.printf("Sorry, %s is not available, would you like to put this item on hold? (y/n)\n", m.title);
+					response = input.nextLine();
+				}
+				while (response.equals("y") && response.equals("n"));
 			
-			//and then finally, if they answer yes, add them to queue, if no, do nothing
-			if (response.equals("y"))
-			{
-				System.out.printf("You have succesfully been added to the queue for %s.\n", m.title);
-				m.hold.enQueue(p);
-			}
-			else if (response.equals("n")) //nothing changes, give them some message
-			{
-				System.out.printf("%s has not been added to the queue.\n", m.title);
+				//and then finally, if they answer yes, add them to queue, if no, do nothing
+				if (response.equals("y"))
+				{
+					System.out.printf("You have succesfully been added to the queue for %s.\n", m.title);
+					m.hold.enQueue(p);
+				}
+				else if (response.equals("n")) //nothing changes, give them some message
+				{
+					System.out.printf("%s has not been added to the queue.\n", m.title);
+				}
 			}
 		}
 		
@@ -151,6 +159,17 @@ public class Library
 		}
 		
 		return null; //no match found
+	}
+	private boolean findPosession(String target)
+	{
+		for (int i = 0; i < this.currentUser.possessions.size(); i++)
+		{
+			if (this.currentUser.possessions.get(i).title.equals(target))
+			{
+				return true; //match found
+			}
+		}
+		return false;
 	}
 	private static Person createPerson() 
 	{
