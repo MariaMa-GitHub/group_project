@@ -14,6 +14,7 @@ public class Library
 {
 	ArrayList<Person> people;
 	ArrayList<Media> collection;
+	Person currentUser; //**new variable
 	String name;
 	String address;
 	static int totalUsers = 0;
@@ -26,6 +27,7 @@ public class Library
 		//add FileIO later
 		this.people = new ArrayList<Person>();
 		this.collection = new ArrayList<Media>();
+		this.currentUser = null;
 		this.name = "TBD";
 		this.address = "TBD";
 	}
@@ -33,6 +35,7 @@ public class Library
 	{
 		this.people = new ArrayList<Person>();
 		this.collection = new ArrayList<Media>();
+		this.currentUser = null;
 		this.name = name;
 		this.address = address;
 	}
@@ -59,23 +62,19 @@ public class Library
 				//ask user if they want to check it out
 				do
 				{
-					System.out.printf("%s is available, would you like to borrow this item?\n", m.title);
+					System.out.printf("%s is available, would you like to borrow this item? (y/n)\n", m.title);
 					response = input.nextLine();
-					
-					//formatting stuff
-					response.toLowerCase(); 
-					response.trim();
 				}
-				while (response == "yes" || response == "no");
+				while (response.equals("y") && response.equals("n"));
 				
 				//and then finally, if they answer yes, add to their checked out items and change the Media's availability
-				if (response == "yes")
+				if (response.equals("y"))
 				{
 					System.out.printf("You have succesfully checked out %s.\n", m.title);
 					p.possessions.add(m);
 					m.availability = false;
 				}
-				else if (response == "no") //nothing changes, give them some message
+				else if (response.equals("n")) //nothing changes, give them some message
 				{
 					System.out.printf("%s has not been checked out.\n", m.title);
 				}
@@ -92,22 +91,18 @@ public class Library
 			//ask user if they want to check it out
 			do
 			{
-				System.out.printf("Sorry, %s is not available, would you like to put this item on hold?\n", m.title);
+				System.out.printf("Sorry, %s is not available, would you like to put this item on hold? (y/n)\n", m.title);
 				response = input.nextLine();
-				
-				//formatting stuff
-				response.toLowerCase(); 
-				response.trim();
 			}
-			while (response == "yes" || response == "no");
+			while (response.equals("y") && response.equals("n"));
 			
 			//and then finally, if they answer yes, add them to queue, if no, do nothing
-			if (response == "yes")
+			if (response.equals("y"))
 			{
 				System.out.printf("You have succesfully been added to the queue for %s.\n", m.title);
 				m.hold.enQueue(p);
 			}
-			else if (response == "no") //nothing changes, give them some message
+			else if (response.equals("n")) //nothing changes, give them some message
 			{
 				System.out.printf("%s has not been added to the queue.\n", m.title);
 			}
@@ -133,8 +128,8 @@ public class Library
 		p.possessions.remove(m);
 	}
 	
-
-	public Person findPerson(int target)
+	//helper methods
+	private Person findPerson(int target)
 	{
 		for (int i = 0; i < this.people.size(); i++)
 		{
@@ -145,18 +140,51 @@ public class Library
 		}
 		return null; //no match found
 	}
-	public static Person createPerson() 
+	private Media findMedia(String target)
+	{
+		for (int i = 0; i < this.collection.size(); i++)
+		{
+			if (this.collection.get(i).title.equals(target))
+			{
+				return this.collection.get(i);
+			}
+		}
+		
+		return null; //no match found
+	}
+	private static Person createPerson() 
 	{
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("\nCreate a library card:");
+		System.out.print("\nCreate a library card:");
 		System.out.print("\nWhat is your name? ");
 		String name = sc.nextLine();
-		System.out.print("How old are you? ");
+		System.out.print("\nHow old are you? ");
 		short age = sc.nextShort();
 		sc.nextLine();
 		
 		return new Person(name, age);
+	}
+	
+	//methods to hardcode collection & people
+	public static void populateCollection(ArrayList<Media> col)
+	{
+		col.add(new Novel("Book1", "Pub1", "GenreA", true, new Queue(), "Author 1", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
+		col.add(new Novel("Book2", "Pub2", "GenreA", true, new Queue(), "Author 2", 700)); //Book 2
+		col.add(new Audiobooks("Audiobook1", "Pub3", "GenreB", true, new Queue(), "Author 3", 1200)); //AudioBook 1
+		col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(), "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
+		col.add(new Novel("Book3", "Pub1", "GenreD", true, new Queue(), "Author 1", 400)); //Book 3
+		col.add(new Audiobooks("Audiobook2", "Pub3", "GenreE", true, new Queue(), "Author 4", 7420));
+		col.add(new Audiobooks("Audiobook2", "Pub4", "GenreD", true, new Queue(), "Author 5", 5600));
+		col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), "18+", "XBox"));
+		col.add(new Novel("Book4", "Pub5", "GenreH", true, new Queue(), "Author 6", 250));
+		col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(), "E", "Nintendo Switch"));
+	}
+	public static void populatePeople(ArrayList<Person> peop)
+	{
+		peop.add(new Person("Alex", (short) 10));
+		peop.add(new Person("Bailey", (short) 15));
+		peop.add(new Person("Charles", (short) 20));
 	}
 	
 	public static void main(String[] args)
@@ -166,57 +194,129 @@ public class Library
 		
 		Library JMPL = new Library("John McCrae Public Library", "123 Internet Road");
 		
-		while (true) 
+		
+		//hard code 10 pre-existing Media inside the library
+		populateCollection(JMPL.collection);
+		//hard code 3 Person inside the library
+		populatePeople(JMPL.people);
+		
+		System.out.printf("Welcome to %s!\n--------------\nDo you already have an account? (y/n)\n", JMPL.name);
+		String answer = sc.nextLine();
+		
+		//repeat until valid answer is given
+		while (!(answer.equals("y")) && !(answer.equals("n")))
 		{
+			System.out.println("Please answer 'y' or 'n'.");
+			answer = sc.nextLine();
+		}
 			
-			System.out.print("\nWould you like to borrow/return items to a library? (y/n) ");
+		if (answer.equals("y")) //they already have an account, ie. cardNum
+		{
+			System.out.println("Great! Please enter your library card number.");
+			answer = sc.nextLine();
 			
-			String response = sc.nextLine();
-			
-			if (response.toLowerCase().equals("y")) 
+			while (JMPL.findPerson(Integer.parseInt(answer)) == null)
 			{
+				System.out.println("No person was found under this card number, please try again. If you need to create an account, type 'exit'");
+				answer = sc.nextLine();
 				
-				Person person;
-				
-				System.out.print("\nDo you have a library card? (y/n) ");
-				
-				response = sc.nextLine();
-				
-				if (response.toLowerCase().equals("y")) 
+				if (answer.equals("exit"))
 				{
-					
-					System.out.print("\nPlease enter you card number: ");
-					int cardNum;
-					
-					try 
-					{
-						cardNum = sc.nextInt();
-						sc.nextLine();
-						person = JMPL.findPerson(cardNum);
-						
-						if (person == null) {
-							person = createPerson();
-						}
-					}
-					catch (Exception e) 
-					{
-						sc.nextLine();
-						person = createPerson();
-					}	
+					break; //exit loop
 				}
-					
-				else {
-					
-					person = createPerson();
-				}
-				
-				// then assign card number to person
-					
 			}
-			else 
+			if (JMPL.findPerson(Integer.parseInt(answer)) != null) //a match was found
 			{
-				break;
+				JMPL.currentUser = JMPL.findPerson(Integer.parseInt(answer));
 			}
 		}
+		
+		//at this point of the code "answer" will equal one of three things:
+		//yes: they have an account and are logged in
+		//no: they do NOT have an account
+		//exit: they do NOT have an account
+		if (answer.equals("n") || answer.equals("exit"))
+		{
+			JMPL.currentUser = createPerson();
+			JMPL.people.add(JMPL.currentUser);
+			System.out.printf("Welcome %s, your library card number is: %d", JMPL.currentUser, JMPL.currentUser.cardNum);
+		}
+		
+		//now everyone should be "logged in" and have an account
+		
+		do
+		{
+			System.out.println("If you would ever like to end the program, please type 'end'.");
+			System.out.println("Would you like to see the items you currently have checked out ('current') or check out a new item ('search')?"); //**this feels really weirdly worded, anyone can change this if they feel like it
+			answer = sc.nextLine();
+			
+			while (!(answer.equals("current")) && !(answer.equals("search")) && !(answer.equals("end")))
+			{
+				System.out.println("Please enter a valid term.");
+				answer = sc.nextLine();
+			}
+		
+			//"access library"
+			if (answer.equals("search"))
+			{
+				//print the entire collection, ask user to pick one, put in "checked out"
+				JMPL.printCollection();
+				System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=\nWhich item would you like?");
+				answer = sc.nextLine();
+				
+				while (JMPL.findMedia(answer) == null)
+				{
+					System.out.println("No item was found under this title, please try again.");
+					answer = sc.nextLine();
+				}
+				
+				JMPL.checkOut(JMPL.findMedia(answer), JMPL.currentUser); //will do the rest of the work
+			}
+			else if (answer.equals("current"))
+			{
+				System.out.println(JMPL.currentUser);
+				
+				if (!(JMPL.currentUser.possessions.isEmpty())) //is not empty
+				{
+					System.out.println("Would you like to reutrn one of your items? (y/n)");
+					answer = sc.nextLine();
+					
+					while (!(answer.equals("y")) && !(answer.equals("n")))
+					{
+						System.out.println("Please enter 'y' or 'n'.");
+						answer = sc.nextLine();
+					}
+					
+					if (answer.equals("yes"))
+					{
+						for (int i = 0; i < JMPL.currentUser.possessions.size(); i++)
+						{
+							System.out.println((i + 1) + ": " + JMPL.currentUser.possessions.get(i) + "\n--------------");
+						}
+						
+						System.out.println("Please enter the number that corresponds with the item you would like to return");;
+						int answerNum = sc.nextInt();
+						sc.nextLine(); //scanner bug
+						
+						while (answerNum < 0 || answerNum > JMPL.currentUser.possessions.size())
+						{
+							System.out.println("Please enter a valid number");
+							answerNum = sc.nextInt();
+						}
+						
+						JMPL.returnBook(JMPL.currentUser.possessions.get(answerNum - 1), JMPL.currentUser); //returns item
+					}
+					else
+					{
+						System.out.println("Come back to return items later.");
+					}
+				}
+				else
+				{
+					System.out.println("You have no items currently checked out.");
+				}
+			}
+			
+		} while (!(answer.equals("end")));
 	}
 }
