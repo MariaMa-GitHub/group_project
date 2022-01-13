@@ -6,6 +6,7 @@ public class Media
     String genre;
     boolean availability;
     Queue hold;
+    int id;
     //default constructor
     public Media(){
         this.title = "";
@@ -13,14 +14,16 @@ public class Media
         this.genre = "";
         this.availability = false;
         this.hold = null;
+        this.id = 0;
     }
     //constructor
-    public Media(String title, String publisher, String genre, boolean availability, Queue hold){
+    public Media(String title, String publisher, String genre, boolean availability, Queue hold, int id){
         this.title = title;
         this.publisher = publisher;
         this.genre = genre;
         this.availability = availability;
         this.hold = hold;
+        this.id = id;
     }
     //method for printing out the title of the specified media
     public String printTitle(){
