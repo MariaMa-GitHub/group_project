@@ -11,6 +11,7 @@ public class Person {
     short age;
     int cardNum;
     ArrayList<Media> possessions;
+    ArrayList<Media> requests;
     
     // default constructor
     public Person() {
@@ -18,6 +19,7 @@ public class Person {
         this.age = 0;
         this.cardNum = 0;
         this.possessions = new ArrayList<Media>();
+        this.requests = new ArrayList<Media>();
     }
     // 2-parameter constructor (name and age)
     public Person(String name, short age) {
@@ -25,17 +27,25 @@ public class Person {
         this.age = age;
         this.cardNum = Library.totalUsers++;
         this.possessions = new ArrayList<Media>();
+        this.requests = new ArrayList<Media>();
+    }
+    
+    // check whether person requested something based on the title provided
+    public boolean findRequest(String target) {
+    	for (Media item : requests) {
+            if (item.title.equals(target)) {
+                return true; //match found
+            }
+        }
+        return false;
     }
     
     // check whether person possesses something based on the title provided
     public boolean findPossession(String target) {
     	for (Media item : possessions) {
-            	{
-            		if (item.title.equals(target))
-            		{
-            			return true; //match found
-            		}
-            	}     
+            if (item.title.equals(target)) {
+                return true; //match found
+            }
         }
         return false;
     }
