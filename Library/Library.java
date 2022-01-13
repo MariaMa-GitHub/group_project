@@ -188,16 +188,16 @@ public class Library
 	//methods to hardcode collection & people
 	public static void populateCollection(ArrayList<Media> col)
 	{
-		col.add(new Novel("Book1", "Pub1", "GenreA", true, new Queue(), "Author 1", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
-		col.add(new Novel("Book2", "Pub2", "GenreA", true, new Queue(), "Author 2", 700)); //Book 2
-		col.add(new Audiobooks("Audiobook1", "Pub3", "GenreB", true, new Queue(), "Author 3", 1200)); //AudioBook 1
-		col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(), "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
-		col.add(new Novel("Book3", "Pub1", "GenreD", true, new Queue(), "Author 1", 400)); //Book 3
-		col.add(new Audiobooks("Audiobook2", "Pub3", "GenreE", true, new Queue(), "Author 4", 7420));
-		col.add(new Audiobooks("Audiobook2", "Pub4", "GenreD", true, new Queue(), "Author 5", 5600));
-		col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), "18+", "XBox"));
-		col.add(new Novel("Book4", "Pub5", "GenreH", true, new Queue(), "Author 6", 250));
-		col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(), "E", "Nintendo Switch"));
+		col.add(new Novel("Book1", "Pub1", "GenreA", true, new Queue(), 2,"Author 1", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
+		col.add(new Novel("Book2", "Pub2", "GenreA", true, new Queue(), 2,"Author 2", 700)); //Book 2
+		col.add(new Audiobooks("Audiobook1", "Pub3", "GenreB", true, new Queue(),1, "Author 3", 1200)); //AudioBook 1
+		col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(),3, "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
+		col.add(new Novel("Book3", "Pub1", "GenreD", true, new Queue(),2, "Author 1", 400)); //Book 3
+		col.add(new Audiobooks("Audiobook2", "Pub3", "GenreE", true, new Queue(),1, "Author 4", 7420));
+		col.add(new Audiobooks("Audiobook2", "Pub4", "GenreD", true, new Queue(),1, "Author 5", 5600));
+		col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), 3,"18+", "XBox"));
+		col.add(new Novel("Book4", "Pub5", "GenreH", true, new Queue(),2, "Author 6", 250));
+		col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(),3, "E", "Nintendo Switch"));
 	}
 	public static void populatePeople(ArrayList<Person> peop)
 	{
@@ -205,7 +205,27 @@ public class Library
 		peop.add(new Person("Bailey", (short) 15));
 		peop.add(new Person("Charles", (short) 20));
 	}
-	
+	public static void sortByMedia(ArrayList<Media> m){
+	    String s1 = "";
+	    String s2 = "";
+	    String s3 = "";
+	    for(int i = 0; i< m.size(); i++){
+	        if(m.get(i).id == 1){
+	         s1 += m.get(i).printTitle() + "\n";
+             }
+             else if(m.get(i).id == 2){
+                 s2 += m.get(i).printTitle() + "\n";
+             }
+             else{
+                 s3 += m.get(i).printTitle() + "\n";
+             }
+             
+         }
+         
+         String ans = "Audiobooks:\n" + s1 + "Novels:\n" + s2 + "Video Games:\n" + s3;
+         System.out.println(ans);
+        }
+        
 	public static void main(String[] args)
 	{
 		 
