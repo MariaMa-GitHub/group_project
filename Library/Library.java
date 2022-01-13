@@ -31,6 +31,7 @@ public class Library
 		this.name = "TBD";
 		this.address = "TBD";
 	}
+	
 	public Library(String name, String address)
 	{
 		this.people = new ArrayList<Person>();
@@ -48,6 +49,15 @@ public class Library
 			System.out.println(m.title);
 		}
 	}
+	//EDITED BY MAX
+	public void printFilteredCollection(String chosenGenre){
+        	for (Media m : this.collection)
+		{
+    		        if ( m.genre.equals(chosenGenre)){
+			System.out.println(m.title);
+                        }
+		}
+        }
 	public void checkOut(Media m, Person p)
 	{
 		//**we can discuss this later, but this is how I think the program will work, tell me if we want to do it differently
@@ -278,8 +288,46 @@ public class Library
 			//"access library"
 			if (answer.equals("search"))
 			{
-				//print the entire collection, ask user to pick one, put in "checked out"
-				JMPL.printCollection();
+				//EDITED BY MAX
+        			System.out.println("Would you like to search by filter? Please answer 'y' or 'n'.");
+        			answer = sc.nextLine();
+        			//looping until they provide a valid answer
+        			while (!(answer.equals("y")) && !(answer.equals("n")))
+                        		{
+                        			System.out.println("Please answer 'y' or 'n'.");
+                        			answer = sc.nextLine();
+                        		}
+                        	//if they don't want a filtered search, print out the collection	
+                        	if (answer.equals("n"))
+                                	{
+                                        	//print the entire collection, ask user to pick one, put in "checked out"
+						JMPL.printCollection();
+                                        }
+				//if they do want a filtered search
+                                else if(answer.equals("y"))
+                                        {
+                                                System.out.println("How would you like to filter? Please answer 'genre' or 'type'.");
+                                                answer = sc.nextLine();
+						//looping until a valid answer is provided
+                                                    while (!(answer.equals("genre")) && !(answer.equals("type")))
+                                		{
+                        			System.out.println("Please submit a valid answer('genre' or 'type').");
+                        			answer = sc.nextLine();
+                                		}
+						//sort by genre
+                                                    if (answer.equals("genre"))
+                                                {
+                                                    System.out.println("What genre would you like to sort by?");
+                                                    answer = sc.nextLine();
+                                                    JMPL.printFilteredCollection(answer);
+                                                }
+						//sort by type of media
+                                                    else if(answer.equals("type"))
+                                                {
+                                                    //code to sort for the type of media here
+                                                }
+                                        }
+				
 				System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=\nWhich item would you like?");
 				answer = sc.nextLine();
 				
