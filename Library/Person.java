@@ -27,40 +27,6 @@ public class Person {
         this.possessions = new ArrayList<Media>();
     }
     
-    // borrow one single item
-    public void borrowItem(Media item) {
-        // check if person can still borrow items (check if person has reached the limit)
-        if (possessions.size() >= MAX_POSSESSIONS) {
-            // error message
-            System.out.println(String.format("To the owner of the card %d:", this.cardNum));
-            System.out.println("You have attained the maximum of items that one can borrow from the library.");
-        }
-        else {
-            // check item availability
-            if (item.availability == true) {
-                // item is taken
-                item.availability = false;
-                // person gets item
-                possessions.add(item);
-            }
-        }
-    }
-    // borrow multiple items
-    public void borrowItem(ArrayList<Media> items) {
-        // check if person can still borrow items (check if person has reached the limit)
-        if (possessions.size() + items.size() > MAX_POSSESSIONS) {
-            // error message
-            System.out.println(String.format("To the owner of the card %d:", this.cardNum));
-            System.out.println("You have attained the maximum of items that one can borrow from the library.");
-        }
-        else {
-            // borrow each item
-            for (Media item : items) {
-                borrowItem(item);
-            }
-        }
-    }
-    
     // get a list of all the items that the person has borrowed
     public String getPossessionList() {
         String itemList = "";
