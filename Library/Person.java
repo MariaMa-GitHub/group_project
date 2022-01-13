@@ -27,6 +27,19 @@ public class Person {
         this.possessions = new ArrayList<Media>();
     }
     
+    // check whether person possesses something based on the title provided
+    public boolean findPossession(String target) {
+    	for (Media item : possessions) {
+            	{
+            		if (item.title.equals(target))
+            		{
+            			return true; //match found
+            		}
+            	}     
+        }
+        return false;
+    }
+    
     // get a list of all the items that the person has borrowed
     public String getPossessionList() {
         String itemList = "";
