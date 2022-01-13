@@ -9,7 +9,7 @@ public class Audiobooks extends Media
         this.length = 0;
     }
     public Audiobooks(String t, String pub, String g, boolean a, Queue hold, String author, int l){
-        super(t, pub, g, a, hold);
+        super(t, pub, g, a, hold, 1);
         this.author = author;
         this.length = l;
     }
