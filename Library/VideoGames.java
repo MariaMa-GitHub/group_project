@@ -1,18 +1,18 @@
 public class VideoGames extends Media
 {
-    String rating, compatibility;
+    String rating, compatability;
     
     public VideoGames(){
         super();
         this.rating = "TBD";
-        this.compatibility = "N/A";
+        this.compatability = "N/A";
     }
     public VideoGames(String t, String pub, String g, boolean a, Queue hold, String r, String c){
-        super(t, pub, g, a, hold);
+        super(t, pub, g, a, hold, 3);
         this.rating = r;
-        this.compatibility = c;
+        this.compatability = c;
     }
     public String toString(){
-       return super.toString() + String.format("Rating: %s\nCompatibility: %s", this.rating, this.compatibility);
+       return super.toString() + String.format("Rating: %s\ncompatability: %s", this.rating, this.compatability);
     }
 }
