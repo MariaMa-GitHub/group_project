@@ -58,8 +58,15 @@ public class Library
         //Check if the current Media is available or not
         if (m.availability) //is available
         {
+            
+            // video game age rating error checking
+            if(m.id == 3){
+                    if(p.age < ((VideoGames)m).rating){
+                        System.out.println("\nThis rating is not compatible for your age!");
+                    }
+            }
             //If available, check if the Person has enough room to borrow the book
-            if (p.possessions.size() < p.MAX_POSSESSIONS)
+            else if (p.possessions.size() < p.MAX_POSSESSIONS)
             {
                 
                 System.out.println("\nInformation about the item:\n\n" + m); 
@@ -219,13 +226,13 @@ public class Library
         col.add(new Novel("Book1", "Pub1", "GenreA", true, new Queue(), "Author 1", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
         col.add(new Novel("Book2", "Pub2", "GenreA", true, new Queue(), "Author 2", 700)); //Book 2
         col.add(new Audiobooks("Audiobook1", "Pub3", "GenreB", true, new Queue(), "Author 3", 1200)); //AudioBook 1
-        col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(), "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
+        col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(), 13, "PS4")); //Game 1 **do we want to change the "rating" to a char?
         col.add(new Novel("Book3", "Pub1", "GenreD", true, new Queue(), "Author 1", 400)); //Book 3
         col.add(new Audiobooks("Audiobook2", "Pub3", "GenreE", true, new Queue(), "Author 4", 7420));
         col.add(new Audiobooks("Audiobook2", "Pub4", "GenreD", true, new Queue(), "Author 5", 5600));
-        col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), "18+", "XBox"));
+        col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), 18, "XBox"));
         col.add(new Novel("Book4", "Pub5", "GenreH", true, new Queue(), "Author 6", 250));
-        col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(), "E", "Nintendo Switch"));
+        col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(), 0, "Nintendo Switch"));
     }
     public static void populatePeople(ArrayList<Person> peop)
     {
