@@ -1,12 +1,3 @@
-/**
- * Library class: 
- * The library can buy new books for its collection, and people (Person class) are able to check books out, 
- * or if they're unavailable, put them on hold.
- * 
- * Bashir Kadri
- * Jan 11, 2022
- */
-
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -45,11 +36,8 @@ public class Library
     
     public void printCollection()
     {
-        //just print all the titles of all the items
-        for (Media m : this.collection)
-        {
-            System.out.println(m.title);
-        }
+        //just print all the titles of all the items sorted by media type
+       System.out.println(sortByMedia(collection));
     }
     public void checkOut(Media m, Person p)
     {
@@ -137,7 +125,7 @@ public class Library
             Person nextPerson = m.hold.deQueue();
             System.out.printf("\n%s is next to pick up the book!\n", nextPerson.name); //doing it this way removes them from the queue & returns name at the same time
             nextPerson.possessions.add(m);
-            nextPerson.requests.remove(m);
+            //nextPerson.requests.remove(m);
             m.availability = false;
         }
         
@@ -179,24 +167,7 @@ public class Library
 			System.out.println(m.title);
                         }
 		}
-	}
-	public static void sortByMedia(ArrayList<Media> m){
-	    String s1 = "";
-	    String s2 = "";
-	    String s3 = "";
-	    for(int i = 0; i< m.size(); i++){
-		if(m.get(i).id == 1){
-		 s1 += m.get(i).printTitle() + "\n";
-	     }
-	     else if(m.get(i).id == 2){
-		 s2 += m.get(i).printTitle() + "\n";
-	     }
-	     else{
-		 s3 += m.get(i).printTitle() + "\n";
-	     }
-
-	 }
-	}
+        }
     
     private static Person createPerson() {
         Scanner sc = new Scanner(System.in);
@@ -229,6 +200,26 @@ public class Library
         peop.add(new Person("Bailey", (short) 15));
         peop.add(new Person("Charles", (short) 20));
     }
+    public static String sortByMedia(ArrayList<Media> m){
+        String s1 = "";
+        String s2 = "";
+        String s3 = "";
+        for(int i = 0; i< m.size(); i++){
+            if(m.get(i).id == 1){
+             s1 += m.get(i).printTitle() + "\n";
+             }
+             else if(m.get(i).id == 2){
+                 s2 += m.get(i).printTitle() + "\n";
+             }
+             else{
+                 s3 += m.get(i).printTitle() + "\n";
+             }
+             
+         }
+         
+         String ans = "\nAUDIOBOOKS:\n" + s1 + "NOVELS:\n" + s2 + "VIDEO GAMES:\n" + s3;
+         return ans;
+        }
     
     public static void main(String[] args)
     {
@@ -351,6 +342,7 @@ public class Library
                                         else if(answer.equals("type"))
                                     {
                                         //code to sort for the type of media here
+                                        JMPL.printCollection();
                                     }
                             }
                             
