@@ -179,7 +179,24 @@ public class Library
 			System.out.println(m.title);
                         }
 		}
-        }
+	}
+	public static void sortByMedia(ArrayList<Media> m){
+	    String s1 = "";
+	    String s2 = "";
+	    String s3 = "";
+	    for(int i = 0; i< m.size(); i++){
+		if(m.get(i).id == 1){
+		 s1 += m.get(i).printTitle() + "\n";
+	     }
+	     else if(m.get(i).id == 2){
+		 s2 += m.get(i).printTitle() + "\n";
+	     }
+	     else{
+		 s3 += m.get(i).printTitle() + "\n";
+	     }
+
+	 }
+	}
     
     private static Person createPerson() {
         Scanner sc = new Scanner(System.in);
