@@ -324,8 +324,8 @@ public class Library
             //looping until they provide a valid answer
             while (!(answer.equals("y")) && !(answer.equals("n")))
                 {
-                    System.out.println("Please answer 'y' or 'n'.");
-                    answer = sc.nextLine();
+                    System.out.print("Please answer 'y' or 'n': ");
+                    answer = sc.nextLine().toLowerCase();
                 }
                 //if they don't want a filtered search, print out the collection    
                 if (answer.equals("n"))
