@@ -174,10 +174,15 @@ public class Library
         return null; //no match found
     }
     public void printFilteredCollection(String chosenGenre){
+        int counter = 0;
         for (Media m : this.collection)
         {
             if ( m.genre.equals(chosenGenre)){
+                counter++;
                 System.out.println(m.title);
+                if(counter == 0){
+                    System.out.println("There is no media that meet your requirements.");
+                }
             }
         }
     }
@@ -216,16 +221,16 @@ public class Library
     //methods to hardcode collection & people
     public static void populateCollection(ArrayList<Media> col)
     {
-        col.add(new Novel("Book1", "Pub1", "GenreA", true, new Queue(), "Author 1", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
-        col.add(new Novel("Book2", "Pub2", "GenreA", true, new Queue(), "Author 2", 700)); //Book 2
-        col.add(new Audiobooks("Audiobook1", "Pub3", "GenreB", true, new Queue(), "Author 3", 1200)); //AudioBook 1
-        col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(), "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
-        col.add(new Novel("Book3", "Pub1", "GenreD", true, new Queue(), "Author 1", 400)); //Book 3
-        col.add(new Audiobooks("Audiobook2", "Pub3", "GenreE", true, new Queue(), "Author 4", 7420));
-        col.add(new Audiobooks("Audiobook2", "Pub4", "GenreD", true, new Queue(), "Author 5", 5600));
-        col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), "18+", "XBox"));
-        col.add(new Novel("Book4", "Pub5", "GenreH", true, new Queue(), "Author 6", 250));
-        col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(), "E", "Nintendo Switch"));
+        col.add(new Novel("Goblet of Fire", "Bloomsbury Publishing", "Fantasy", true, new Queue(), "J. K. Rowling", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
+        col.add(new Novel("The Lightning Thief", "Miramax Books", "Fantasy", true, new Queue(), "Rick Riordan", 700)); //Book 2
+        col.add(new Audiobooks("Dune", "Holtzbrinck Publishing Group", "Fantasy", true, new Queue(), "Frank Herbert", 1200)); //AudioBook 1
+        col.add(new VideoGames("It Takes Two", "Hazelight Studios", "Action", true, new Queue(), "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
+        col.add(new Novel("Pride and Prejudice", "Modern Library", "Romance", true, new Queue(), "Jane Austen", 400)); //Book 3
+        col.add(new Audiobooks("Outlander", "Recorded Books", "Fantasy", true, new Queue(), "Diana Gabaldon", 7420));
+        col.add(new Audiobooks("One Plus One", "Penguin Audio", "Romance", true, new Queue(), "Jojo Moyes", 5600));
+        col.add(new VideoGames("Red Dead Redemption 2", "Rockstar Games", "Action", true, new Queue(), "18+", "XBox"));
+        col.add(new Novel("Sherlock Holmes", "Bramhall House", "Mystery", true, new Queue(), "William S. Baring-Gould", 250));
+        col.add(new VideoGames("Super Mario Bros", "Nintendo", "Platformer", true, new Queue(), "E", "Nintendo Switch"));
     }
     public static void populatePeople(ArrayList<Person> peop)
     {
