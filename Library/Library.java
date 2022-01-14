@@ -1,12 +1,3 @@
-/**
- * Library class: 
- * The library can buy new books for its collection, and people (Person class) are able to check books out, 
- * or if they're unavailable, put them on hold.
- * 
- * Bashir Kadri
- * Jan 11, 2022
- */
-
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -45,10 +36,8 @@ public class Library
     
     public void printCollection()
     {
-        //just print all the titles of all the items
-        for (Media m : this.collection) {
-            System.out.println(m.title);
-        }
+        //just print all the titles of all the items sorted by media type
+       System.out.println(sortByMedia(collection));
     }
     public void checkOut(Media m, Person p)
     {
@@ -58,13 +47,20 @@ public class Library
         //Check if the current Media is available or not
         if (m.availability) //is available
         {
+             //if their age is above the rating and a video game is being checked out
+            if(m.id == 3){
+                    if(p.age < ((VideoGames)m).rating){
+                        System.out.println("\nThis rating is not compatible for your age!");
+                        
+                    }
+                    
+            }
             //If available, check if the Person has enough room to borrow the book
-            if (p.possessions.size() < p.MAX_POSSESSIONS)
+            else if (p.possessions.size() < p.MAX_POSSESSIONS)
             {
                 
                 System.out.println("\nInformation about the item:\n\n" + m); 
-                
-                // if video game, check age rating
+
                 
                 //ask user if they want to check it out
                 do
@@ -89,14 +85,14 @@ public class Library
             }
             else //item is available, but their "cart" is full, give some message
             {
-                System.out.println("\nSorry, you have too many items currently checked out. Please try again another time.");
+                System.out.println("Sorry, you have too many items currently checked out. Please try again another time.");
             }
         }
-        else if (currentUser.findPossession(m)) //if the user already has current item
+        else if (currentUser.findPossession(m.title)) //if the user already has current item
         {
             System.out.printf("\nSorry, you already have %s checked out. You cannot currently put this on hold.\n", m.title);
         }
-        else if (currentUser.findRequest(m)) //if the user already requested for the current item
+        else if (currentUser.findRequest(m.title)) //if the user already requested for the current item
         {
             System.out.printf("\nSorry, you are already waiting in line for %s. You cannot currently put this on hold.\n", m.title);
         }
@@ -138,7 +134,7 @@ public class Library
             Person nextPerson = m.hold.deQueue();
             System.out.printf("\n%s is next to pick up the book!\n", nextPerson.name); //doing it this way removes them from the queue & returns name at the same time
             nextPerson.possessions.add(m);
-            nextPerson.requests.remove(m);
+            //nextPerson.requests.remove(m);
             m.availability = false;
         }
         
@@ -174,33 +170,13 @@ public class Library
         return null; //no match found
     }
     public void printFilteredCollection(String chosenGenre){
-        for (Media m : this.collection)
-        {
-            if ( m.genre.equals(chosenGenre)){
-                System.out.println(m.title);
-            }
+        	for (Media m : this.collection)
+		{
+    		        if ( m.genre.equals(chosenGenre)){
+			System.out.println(m.title);
+                        }
+		}
         }
-    }
-    public static String sortByMedia(ArrayList<Media> m){
-        String s1 = "";
-        String s2 = "";
-        String s3 = "";
-        for(int i = 0; i< m.size(); i++){
-            if(m.get(i).id == 1){
-             s1 += m.get(i).printTitle() + "\n";
-             }
-             else if(m.get(i).id == 2){
-                 s2 += m.get(i).printTitle() + "\n";
-             }
-             else{
-                 s3 += m.get(i).printTitle() + "\n";
-             }
-
-         }
-
-         String ans = "\nAUDIOBOOKS:\n" + s1 + "\nNOVELS:\n" + s2 + "\nVIDEO GAMES:\n" + s3;
-         return ans;
-    }
     
     private static Person createPerson() {
         Scanner sc = new Scanner(System.in);
@@ -219,13 +195,13 @@ public class Library
         col.add(new Novel("Book1", "Pub1", "GenreA", true, new Queue(), "Author 1", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
         col.add(new Novel("Book2", "Pub2", "GenreA", true, new Queue(), "Author 2", 700)); //Book 2
         col.add(new Audiobooks("Audiobook1", "Pub3", "GenreB", true, new Queue(), "Author 3", 1200)); //AudioBook 1
-        col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(), "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
+        col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(), 13, "PS4")); //Game 1 **do we want to change the "rating" to a char?
         col.add(new Novel("Book3", "Pub1", "GenreD", true, new Queue(), "Author 1", 400)); //Book 3
         col.add(new Audiobooks("Audiobook2", "Pub3", "GenreE", true, new Queue(), "Author 4", 7420));
         col.add(new Audiobooks("Audiobook2", "Pub4", "GenreD", true, new Queue(), "Author 5", 5600));
-        col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), "18+", "XBox"));
+        col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), 18, "XBox"));
         col.add(new Novel("Book4", "Pub5", "GenreH", true, new Queue(), "Author 6", 250));
-        col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(), "E", "Nintendo Switch"));
+        col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(), 0, "Nintendo Switch"));
     }
     public static void populatePeople(ArrayList<Person> peop)
     {
@@ -233,6 +209,26 @@ public class Library
         peop.add(new Person("Bailey", (short) 15));
         peop.add(new Person("Charles", (short) 20));
     }
+    public static String sortByMedia(ArrayList<Media> m){
+        String s1 = "";
+        String s2 = "";
+        String s3 = "";
+        for(int i = 0; i< m.size(); i++){
+            if(m.get(i).id == 1){
+             s1 += m.get(i).printTitle() + "\n";
+             }
+             else if(m.get(i).id == 2){
+                 s2 += m.get(i).printTitle() + "\n";
+             }
+             else{
+                 s3 += m.get(i).printTitle() + "\n";
+             }
+             
+         }
+         
+         String ans = "\nAUDIOBOOKS:\n" + s1 + "NOVELS:\n" + s2 + "VIDEO GAMES:\n" + s3;
+         return ans;
+        }
     
     public static void main(String[] args)
     {
@@ -319,44 +315,43 @@ public class Library
                 System.out.println();
                 // JMPL.printCollection();
                 //EDITED BY MAX
-            System.out.print("Would you like to search by filter? (y/n) ");
-            answer = sc.nextLine().toLowerCase();
-            //looping until they provide a valid answer
-            while (!(answer.equals("y")) && !(answer.equals("n")))
-                {
-                    System.out.println("Please answer 'y' or 'n'.");
-                    answer = sc.nextLine();
-                }
-                //if they don't want a filtered search, print out the collection    
-                if (answer.equals("n"))
-                        {
+			System.out.print("Would you like to search by filter? Please answer 'y' or 'n': ");
+			answer = sc.nextLine().toLowerCase();
+			//looping until they provide a valid answer
+			while (!(answer.equals("y")) && !(answer.equals("n")))
+        		{
+        			System.out.println("Please answer 'y' or 'n'.");
+        			answer = sc.nextLine();
+        		}
+            	//if they don't want a filtered search, print out the collection	
+            	if (answer.equals("n"))
+                    	{
                         //print the entire collection, ask user to pick one, put in "checked out"
-                             System.out.println();
-                            JMPL.printCollection();
+			JMPL.printCollection();
                             }
-    //if they do want a filtered search
+	//if they do want a filtered search
                     else if(answer.equals("y"))
                             {
-                                    System.out.print("\nHow would you like to filter by 'genre' or by 'type': ");
+                                    System.out.print("\nHow would you like to filter? Please answer 'genre' or 'type': ");
                                     answer = sc.nextLine().toLowerCase();
-                                    //looping until a valid answer is provided
+			//looping until a valid answer is provided
                                         while (!(answer.equals("genre")) && !(answer.equals("type")))
-                            {
-                        System.out.print("Please submit a valid answer('genre' or 'type'): ");
-                        answer = sc.nextLine().toLowerCase();
-                            }
-            //sort by genre
+                    		{
+            			System.out.print("Please submit a valid answer('genre' or 'type'): ");
+            			answer = sc.nextLine().toLowerCase();
+                    		}
+			//sort by genre
                                         if (answer.equals("genre"))
                                     {
-                                        System.out.print("What genre would you like to sort by? ");
+                                        System.out.println("What genre would you like to sort by?");
                                         answer = sc.nextLine();
-                                        System.out.println();
                                         JMPL.printFilteredCollection(answer);
                                     }
-            //sort by type of media
+			//sort by type of media
                                         else if(answer.equals("type"))
                                     {
-                                        System.out.print(sortByMedia(JMPL.collection));
+                                        //code to sort for the type of media here
+                                        JMPL.printCollection();
                                     }
                             }
                             
@@ -390,10 +385,10 @@ public class Library
                     {
                         for (int i = 0; i < JMPL.currentUser.possessions.size(); i++)
                         {
-                            System.out.println("\nItem " + (i + 1) + ":\n\n" + JMPL.currentUser.possessions.get(i));
+                            System.out.println("\nItem " + (i + 1) + ":\n\n" + JMPL.currentUser.possessions.get(i) + "\n");
                         }
                         
-                        System.out.print("\nPlease enter the number that corresponds with the item you would like to return: ");;
+                        System.out.print("Please enter the number that corresponds with the item you would like to return: ");;
                         int answerNum = sc.nextInt();
                         sc.nextLine(); //scanner bug
                         
