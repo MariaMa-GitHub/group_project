@@ -317,45 +317,46 @@ public class Library
                 System.out.println();
                 // JMPL.printCollection();
                 //EDITED BY MAX
-            System.out.print("Would you like to search by filter? (y/n) ");
-            answer = sc.nextLine().toLowerCase();
-            //looping until they provide a valid answer
-            while (!(answer.equals("y")) && !(answer.equals("n")))
+                System.out.print("Would you like to search by filter? (y/n) ");
+                answer = sc.nextLine().toLowerCase();
+                //looping until they provide a valid answer
+                while (!(answer.equals("y")) && !(answer.equals("n")))
                 {
                     System.out.println("Please answer 'y' or 'n'.");
                     answer = sc.nextLine();
                 }
                 //if they don't want a filtered search, print out the collection    
                 if (answer.equals("n"))
+                {
+                    //print the entire collection, ask user to pick one, put in "checked out"
+                    System.out.println();
+                    JMPL.printCollection();
+                }
+                //if they do want a filtered search
+                else if(answer.equals("y"))
+                {
+                    System.out.print("\nHow would you like to filter by 'genre' or by 'type': ");
+                    answer = sc.nextLine().toLowerCase();
+                    //looping until a valid answer is provided
+                    while (!(answer.equals("genre")) && !(answer.equals("type")))
+                {
+                    System.out.print("Please submit a valid answer('genre' or 'type'): ");
+                    answer = sc.nextLine().toLowerCase();
+                }
+                //sort by genre
+                if (answer.equals("genre"))
+                {
+                    System.out.print("What genre would you like to sort by? ");
+                    answer = sc.nextLine();
+                    System.out.println();
+                    JMPL.printFilteredCollection(answer);
+                }
+                //sort by type of media
+                else if(answer.equals("type"))
                         {
-                        //print the entire collection, ask user to pick one, put in "checked out"
-            JMPL.printCollection();
-                            }
-    //if they do want a filtered search
-                    else if(answer.equals("y"))
-                            {
-                                    System.out.print("\nHow would you like to filter by 'genre' or by 'type': ");
-                                    answer = sc.nextLine().toLowerCase();
-                                    //looping until a valid answer is provided
-                                        while (!(answer.equals("genre")) && !(answer.equals("type")))
-                            {
-                        System.out.print("Please submit a valid answer('genre' or 'type'): ");
-                        answer = sc.nextLine().toLowerCase();
-                            }
-            //sort by genre
-                                        if (answer.equals("genre"))
-                                    {
-                                        System.out.print("What genre would you like to sort by? ");
-                                        answer = sc.nextLine();
-                                        System.out.println();
-                                        JMPL.printFilteredCollection(answer);
-                                    }
-            //sort by type of media
-                                        else if(answer.equals("type"))
-                                    {
-                                        System.out.print(sortByMedia(JMPL.collection));
-                                    }
-                            }
+                            System.out.print(sortByMedia(JMPL.collection));
+                        }
+                }
                             
                 System.out.print("\nWhich item would you like to borrow? ");
                 answer = sc.nextLine();
