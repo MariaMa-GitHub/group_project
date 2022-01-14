@@ -92,11 +92,11 @@ public class Library
                 System.out.println("\nSorry, you have too many items currently checked out. Please try again another time.");
             }
         }
-        else if (currentUser.findPossession(m.title)) //if the user already has current item
+        else if (currentUser.findPossession(m)) //if the user already has current item
         {
             System.out.printf("\nSorry, you already have %s checked out. You cannot currently put this on hold.\n", m.title);
         }
-        else if (currentUser.findRequest(m.title)) //if the user already requested for the current item
+        else if (currentUser.findRequest(m)) //if the user already requested for the current item
         {
             System.out.printf("\nSorry, you are already waiting in line for %s. You cannot currently put this on hold.\n", m.title);
         }
