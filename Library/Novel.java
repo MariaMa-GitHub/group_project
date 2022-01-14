@@ -16,8 +16,8 @@ public class Novel extends Media
         this.pageCount = 0;
     }
     //constructor that inherits from Media superclass
-    public Novel(String t, String pub, String g, boolean a, Queue hold, String author, int p){
-        super(t, pub, g, a, hold, 2);
+    public Novel(String t, String pub, String g, String author, int p){
+        super(t, pub, g, 2);
         this.author = author;
         this.pageCount = p;
     }

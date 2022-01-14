@@ -232,16 +232,16 @@ public class Library
     //methods to hardcode collection & people
     public static void populateCollection(ArrayList<Media> col)
     {  
-        col.add(new Novel("Goblet of Fire", "Bloomsbury Publishing", "Fantasy", true, new Queue(), "J. K. Rowling", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
-        col.add(new Novel("The Lightning Thief", "Miramax Books", "Fantasy", true, new Queue(), "Rick Riordan", 700)); //Book 2
-        col.add(new Audiobooks("Dune", "Holtzbrinck Publishing Group", "Fantasy", true, new Queue(), "Frank Herbert", 1200)); //AudioBook 1
-        col.add(new VideoGames("It Takes Two", "Hazelight Studios", "Action", true, new Queue(), 13, "PS4")); //Game 1 **do we want to change the "rating" to a char?
-        col.add(new Novel("Pride and Prejudice", "Modern Library", "Romance", true, new Queue(), "Jane Austen", 400)); //Book 3
-        col.add(new Audiobooks("Outlander", "Recorded Books", "Fantasy", true, new Queue(), "Diana Gabaldon", 7420));
-        col.add(new Audiobooks("One Plus One", "Penguin Audio", "Romance", true, new Queue(), "Jojo Moyes", 5600));
-        col.add(new VideoGames("Red Dead Redemption 2", "Rockstar Games", "Action", true, new Queue(), 18, "XBox"));
-        col.add(new Novel("Sherlock Holmes", "Bramhall House", "Mystery", true, new Queue(), "William S. Baring-Gould", 250));
-        col.add(new VideoGames("Super Mario Bros", "Nintendo", "Platformer", true, new Queue(), 0, "Nintendo Switch"));
+        col.add(new Novel("Goblet of Fire", "Bloomsbury Publishing", "Fantasy", "J. K. Rowling", 500)); 
+        col.add(new Novel("The Lightning Thief", "Miramax Books", "Fantasy", "Rick Riordan", 700)); 
+        col.add(new Audiobooks("Dune", "Holtzbrinck Publishing Group", "Fantasy", "Frank Herbert", 1200)); 
+        col.add(new VideoGames("It Takes Two", "Hazelight Studios", "Action", 13, "PS4")); 
+        col.add(new Novel("Pride and Prejudice", "Modern Library", "Romance", "Jane Austen", 400)); 
+        col.add(new Audiobooks("Outlander", "Recorded Books", "Fantasy", "Diana Gabaldon", 7420));
+        col.add(new Audiobooks("One Plus One", "Penguin Audio", "Romance", "Jojo Moyes", 5600));
+        col.add(new VideoGames("Red Dead Redemption 2", "Rockstar Games", "Action", 18, "XBox"));
+        col.add(new Novel("Sherlock Holmes", "Bramhall House", "Mystery", "William S. Baring-Gould", 250));
+        col.add(new VideoGames("Super Mario Bros", "Nintendo", "Platformer", 0, "Nintendo Switch"));
     }
     public static void populatePeople(ArrayList<Person> peop)
     {
@@ -321,7 +321,7 @@ public class Library
                 if (answer.equals("search")) {
                      
                     // check if genre input is valid (if it exists)
-                    boolean valid = false; 
+                    boolean valid = true; 
                     
                     // ask whether user wants to filter search
                     System.out.println();
@@ -355,6 +355,7 @@ public class Library
                         //sort by genre
                         if (answer.equals("genre"))
                         {
+                            valid = false; 
                             System.out.print("What genre would you like to sort by? ");
                             answer = sc.nextLine();
                             System.out.println();

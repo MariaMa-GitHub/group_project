@@ -17,12 +17,12 @@ public class Media
         this.id = 0;
     }
     //constructor
-    public Media(String title, String publisher, String genre, boolean availability, Queue hold, int id){
+    public Media(String title, String publisher, String genre, int id){
         this.title = title;
         this.publisher = publisher;
         this.genre = genre;
-        this.availability = availability;
-        this.hold = hold;
+        this.availability = true;
+        this.hold = new Queue();
         this.id = id;
     }
     //method for printing out the title of the specified media

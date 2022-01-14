@@ -16,8 +16,8 @@ public class VideoGames extends Media
         this.compatibility = "N/A";
     }
     //constructor that inherits from Media superclass
-    public VideoGames(String t, String pub, String g, boolean a, Queue hold, int r, String c){
-        super(t, pub, g, a, hold, 3);
+    public VideoGames(String t, String pub, String g, int r, String c){
+        super(t, pub, g, 3);
         this.rating = r;
         this.compatibility = c;
     }

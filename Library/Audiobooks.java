@@ -16,8 +16,8 @@ public class Audiobooks extends Media
         this.length = 0;
     }
     //constructor that inherits from Media superclass
-    public Audiobooks(String t, String pub, String g, boolean a, Queue hold, String author, int l){
-        super(t, pub, g, a, hold, 1);
+    public Audiobooks(String t, String pub, String g, String author, int l){
+        super(t, pub, g, 1);
         this.author = author;
         this.length = l;
     }
