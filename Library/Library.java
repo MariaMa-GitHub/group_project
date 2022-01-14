@@ -180,11 +180,12 @@ public class Library
             if ( m.genre.equals(chosenGenre)){
                 counter++;
                 System.out.println(m.title);
-                if(counter == 0){
-                    System.out.println("There is no media that meet your requirements.");
-                }
+                
             }
         }
+        if(counter == 0){
+                    System.out.println("There is no media that meet your requirements.");
+                }
     }
     public static String sortByMedia(ArrayList<Media> m){
         String s1 = "";
