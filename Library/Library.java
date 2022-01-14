@@ -64,6 +64,8 @@ public class Library
                 
                 System.out.println("\nInformation about the item:\n\n" + m); 
                 
+                // if video game, check age rating
+                
                 //ask user if they want to check it out
                 do
                 {
@@ -87,7 +89,7 @@ public class Library
             }
             else //item is available, but their "cart" is full, give some message
             {
-                System.out.println("Sorry, you have too many items currently checked out. Please try again another time.");
+                System.out.println("\nSorry, you have too many items currently checked out. Please try again another time.");
             }
         }
         else if (currentUser.findPossession(m.title)) //if the user already has current item
@@ -317,46 +319,46 @@ public class Library
                 System.out.println();
                 // JMPL.printCollection();
                 //EDITED BY MAX
-                System.out.print("Would you like to search by filter? (y/n) ");
-                answer = sc.nextLine().toLowerCase();
-                //looping until they provide a valid answer
-                while (!(answer.equals("y")) && !(answer.equals("n")))
+            System.out.print("Would you like to search by filter? (y/n) ");
+            answer = sc.nextLine().toLowerCase();
+            //looping until they provide a valid answer
+            while (!(answer.equals("y")) && !(answer.equals("n")))
                 {
                     System.out.println("Please answer 'y' or 'n'.");
                     answer = sc.nextLine();
                 }
                 //if they don't want a filtered search, print out the collection    
                 if (answer.equals("n"))
-                {
-                    //print the entire collection, ask user to pick one, put in "checked out"
-                    System.out.println();
-                    JMPL.printCollection();
-                }
-                //if they do want a filtered search
-                else if(answer.equals("y"))
-                {
-                    System.out.print("\nHow would you like to filter by 'genre' or by 'type': ");
-                    answer = sc.nextLine().toLowerCase();
-                    //looping until a valid answer is provided
-                    while (!(answer.equals("genre")) && !(answer.equals("type")))
-                {
-                    System.out.print("Please submit a valid answer('genre' or 'type'): ");
-                    answer = sc.nextLine().toLowerCase();
-                }
-                //sort by genre
-                if (answer.equals("genre"))
-                {
-                    System.out.print("What genre would you like to sort by? ");
-                    answer = sc.nextLine();
-                    System.out.println();
-                    JMPL.printFilteredCollection(answer);
-                }
-                //sort by type of media
-                else if(answer.equals("type"))
                         {
-                            System.out.print(sortByMedia(JMPL.collection));
-                        }
-                }
+                        //print the entire collection, ask user to pick one, put in "checked out"
+                             System.out.println();
+                            JMPL.printCollection();
+                            }
+    //if they do want a filtered search
+                    else if(answer.equals("y"))
+                            {
+                                    System.out.print("\nHow would you like to filter by 'genre' or by 'type': ");
+                                    answer = sc.nextLine().toLowerCase();
+                                    //looping until a valid answer is provided
+                                        while (!(answer.equals("genre")) && !(answer.equals("type")))
+                            {
+                        System.out.print("Please submit a valid answer('genre' or 'type'): ");
+                        answer = sc.nextLine().toLowerCase();
+                            }
+            //sort by genre
+                                        if (answer.equals("genre"))
+                                    {
+                                        System.out.print("What genre would you like to sort by? ");
+                                        answer = sc.nextLine();
+                                        System.out.println();
+                                        JMPL.printFilteredCollection(answer);
+                                    }
+            //sort by type of media
+                                        else if(answer.equals("type"))
+                                    {
+                                        System.out.print(sortByMedia(JMPL.collection));
+                                    }
+                            }
                             
                 System.out.print("\nWhich item would you like to borrow? ");
                 answer = sc.nextLine();
@@ -388,10 +390,10 @@ public class Library
                     {
                         for (int i = 0; i < JMPL.currentUser.possessions.size(); i++)
                         {
-                            System.out.println("\nItem " + (i + 1) + ":\n\n" + JMPL.currentUser.possessions.get(i) + "\n");
+                            System.out.println("\nItem " + (i + 1) + ":\n\n" + JMPL.currentUser.possessions.get(i));
                         }
                         
-                        System.out.print("Please enter the number that corresponds with the item you would like to return: ");;
+                        System.out.print("\nPlease enter the number that corresponds with the item you would like to return: ");;
                         int answerNum = sc.nextInt();
                         sc.nextLine(); //scanner bug
                         
