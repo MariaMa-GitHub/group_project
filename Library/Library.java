@@ -180,12 +180,21 @@ public class Library
         
         return null; //no match found
     }
-    public void printFilteredCollection(String chosenGenre){
+    public boolean printFilteredCollection(String chosenGenre){
+        int counter = 0;
         for (Media m : this.collection)
         {
             if ( m.genre.equals(chosenGenre)){
+                counter++;
                 System.out.println(m.title);
             }
+        }
+        if(counter == 0){
+            System.out.println("There is no media that meet your requirements.");
+            return false;
+        }
+        else{
+            return true;
         }
     }
     public static String sortByMedia(ArrayList<Media> m){
@@ -222,17 +231,17 @@ public class Library
     }
     //methods to hardcode collection & people
     public static void populateCollection(ArrayList<Media> col)
-    {
-        col.add(new Novel("Book1", "Pub1", "GenreA", true, new Queue(), "Author 1", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
-        col.add(new Novel("Book2", "Pub2", "GenreA", true, new Queue(), "Author 2", 700)); //Book 2
-        col.add(new Audiobooks("Audiobook1", "Pub3", "GenreB", true, new Queue(), "Author 3", 1200)); //AudioBook 1
-        col.add(new VideoGames("Game1", "Ubisoft", "GenreC", true, new Queue(), 13, "PS4")); //Game 1 **do we want to change the "rating" to a char?
-        col.add(new Novel("Book3", "Pub1", "GenreD", true, new Queue(), "Author 1", 400)); //Book 3
-        col.add(new Audiobooks("Audiobook2", "Pub3", "GenreE", true, new Queue(), "Author 4", 7420));
-        col.add(new Audiobooks("Audiobook2", "Pub4", "GenreD", true, new Queue(), "Author 5", 5600));
-        col.add(new VideoGames("Game2", "Microsoft", "GenreF", true, new Queue(), 18, "XBox"));
-        col.add(new Novel("Book4", "Pub5", "GenreH", true, new Queue(), "Author 6", 250));
-        col.add(new VideoGames("Game3", "Nintendo", "GenreG", true, new Queue(), 0, "Nintendo Switch"));
+    {  
+        col.add(new Novel("Goblet of Fire", "Bloomsbury Publishing", "Fantasy", true, new Queue(), "J. K. Rowling", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
+        col.add(new Novel("The Lightning Thief", "Miramax Books", "Fantasy", true, new Queue(), "Rick Riordan", 700)); //Book 2
+        col.add(new Audiobooks("Dune", "Holtzbrinck Publishing Group", "Fantasy", true, new Queue(), "Frank Herbert", 1200)); //AudioBook 1
+        col.add(new VideoGames("It Takes Two", "Hazelight Studios", "Action", true, new Queue(), 13, "PS4")); //Game 1 **do we want to change the "rating" to a char?
+        col.add(new Novel("Pride and Prejudice", "Modern Library", "Romance", true, new Queue(), "Jane Austen", 400)); //Book 3
+        col.add(new Audiobooks("Outlander", "Recorded Books", "Fantasy", true, new Queue(), "Diana Gabaldon", 7420));
+        col.add(new Audiobooks("One Plus One", "Penguin Audio", "Romance", true, new Queue(), "Jojo Moyes", 5600));
+        col.add(new VideoGames("Red Dead Redemption 2", "Rockstar Games", "Action", true, new Queue(), 18, "XBox"));
+        col.add(new Novel("Sherlock Holmes", "Bramhall House", "Mystery", true, new Queue(), "William S. Baring-Gould", 250));
+        col.add(new VideoGames("Super Mario Bros", "Nintendo", "Platformer", true, new Queue(), 0, "Nintendo Switch"));
     }
     public static void populatePeople(ArrayList<Person> peop)
     {
@@ -240,200 +249,203 @@ public class Library
         peop.add(new Person("Bailey", (short) 15));
         peop.add(new Person("Charles", (short) 20));
     }
-    
-    public static void main(String[] args)
-    {
-         
+     
+    // main program
+    public static void main(String[] args) {
+          
+        
         Scanner sc = new Scanner(System.in);
         
+        // pre-existing library, items, and people
         Library JMPL = new Library("John McCrae Public Library", "123 Internet Road");
-        
-        
-        //hard code 10 pre-existing Media inside the library
         populateCollection(JMPL.collection);
-        //hard code 3 Person inside the library
         populatePeople(JMPL.people);
-        
-        
-        
-        // HARDCODED TEST CODE by Maria
-        // JMPL.collection.get(0).hold.enQueue(JMPL.people.get(0));
-        // JMPL.collection.get(0).hold.enQueue(JMPL.people.get(1));
-        // JMPL.collection.get(1).hold.enQueue(JMPL.people.get(2));
-        
+          
+        // program loop        
         while (true) {
         
-        System.out.printf("Welcome to %s!\n\nDo you already have an account? (y/n) ", JMPL.name);
-        String answer = sc.nextLine().toLowerCase();
-        
-        //repeat until valid answer is given
-        while (!(answer.equals("y")) && !(answer.equals("n")))
-        {
-            System.out.print("Please answer 'y' or 'n': ");
-            answer = sc.nextLine().toLowerCase();
-        }
+            // ask person for library account
+            System.out.printf("Welcome to %s!\n\nDo you already have an account? (y/n) ", JMPL.name);
+            String answer = sc.nextLine().toLowerCase();
             
-        if (answer.equals("y")) //they already have an account, ie. cardNum
-        {
-            System.out.print("\nGreat! Please enter your library card number: ");
-            answer = sc.nextLine();
-            
-            // ********* ERROR CATCHING *****************
-            while (JMPL.findPerson(Integer.parseInt(answer)) == null)
-            {
-                System.out.print("No person was found under this card number, please try again. If you need to create an account, type 'register': ");
-                answer = sc.nextLine().toLowerCase();
-                
-                if (answer.equals("register"))
-                {
-                    break; //exit loop
-                }
-            }
-            if (JMPL.findPerson(Integer.parseInt(answer)) != null) //a match was found
-            {
-                JMPL.currentUser = JMPL.findPerson(Integer.parseInt(answer));
-            }
-        }
-        
-        //at this point of the code "answer" will equal one of three things:
-        //yes: they have an account and are logged in
-        //no: they do NOT have an account
-        //exit: they do NOT have an account
-        if (answer.equals("n") || answer.equals("register"))
-        {
-            JMPL.currentUser = createPerson();
-            JMPL.people.add(JMPL.currentUser);
-            System.out.printf("\nYou account has been created:\n\n" + JMPL.currentUser + "\n");
-        }
-        
-        //now everyone should be "logged in" and have an account
-        do
-        {
-            // System.out.println("If you would ever like to end the program, please type 'exit'.");
-            System.out.print("\nWould you like to see your inventory ('current'), check out a new item ('search'), or exit the program ('exit')? "); //**this feels really weirdly worded, anyone can change this if they feel like it
-            answer = sc.nextLine().toLowerCase();
-            
-            while (!(answer.equals("current")) && !(answer.equals("search")) && !(answer.equals("exit")))
-            {
-                System.out.print("Please enter a valid term: ");
-                answer = sc.nextLine().toLowerCase();
-            }
-        
-            //"access library"
-            if (answer.equals("search"))
-            {
-                //print the entire collection, ask user to pick one, put in "checked out"
-                System.out.println();
-                // JMPL.printCollection();
-                //EDITED BY MAX
-            System.out.print("Would you like to search by filter? (y/n) ");
-            answer = sc.nextLine().toLowerCase();
-            //looping until they provide a valid answer
+            //repeat until valid answer is given
             while (!(answer.equals("y")) && !(answer.equals("n")))
-                {
-                    System.out.print("Please answer 'y' or 'n': ");
-                    answer = sc.nextLine().toLowerCase();
-                }
-                //if they don't want a filtered search, print out the collection    
-                if (answer.equals("n"))
-                        {
-                        //print the entire collection, ask user to pick one, put in "checked out"
-                             System.out.println();
-                            JMPL.printCollection();
-                            }
-    //if they do want a filtered search
-                    else if(answer.equals("y"))
-                            {
-                                    System.out.print("\nHow would you like to filter by 'genre' or by 'type': ");
-                                    answer = sc.nextLine().toLowerCase();
-                                    //looping until a valid answer is provided
-                                        while (!(answer.equals("genre")) && !(answer.equals("type")))
-                            {
-                        System.out.print("Please submit a valid answer('genre' or 'type'): ");
-                        answer = sc.nextLine().toLowerCase();
-                            }
-            //sort by genre
-                                        if (answer.equals("genre"))
-                                    {
-                                        System.out.print("What genre would you like to sort by? ");
-                                        answer = sc.nextLine();
-                                        System.out.println();
-                                        JMPL.printFilteredCollection(answer);
-                                    }
-            //sort by type of media
-                                        else if(answer.equals("type"))
-                                    {
-                                        System.out.print(sortByMedia(JMPL.collection));
-                                    }
-                            }
-                            
-                System.out.print("\nWhich item would you like to borrow? ");
+            {
+                System.out.print("Please answer 'y' or 'n': ");
+                answer = sc.nextLine().toLowerCase();
+            }
+                
+            // user has an account
+            if (answer.equals("y")) {
+                
+                // library card number input
+                System.out.print("\nGreat! Please enter your library card number: ");
                 answer = sc.nextLine();
                 
-                while (JMPL.findMedia(answer) == null)
-                {
-                    System.out.print("No item was found under this title, please try again: ");
-                    answer = sc.nextLine();
+                //  no user with this card number found
+                while (JMPL.findPerson(Integer.parseInt(answer)) == null) {
+                    System.out.print("\nNo person was found under this card number, please try again. \nIf you need to create an account, type 'register': ");
+                    answer = sc.nextLine().toLowerCase();
+                    if (answer.equals("register")) {
+                        //exit loop
+                        break; 
+                    }
                 }
-                
-                JMPL.checkOut(JMPL.findMedia(answer), JMPL.currentUser); //will do the rest of the work
+                // fetch user account
+                if (!answer.equals("register"))
+                    JMPL.currentUser = JMPL.findPerson(Integer.parseInt(answer));
             }
-            else if (answer.equals("current"))
-            {
-                System.out.println("\n" + JMPL.currentUser);
+            
+            // create user account
+            if (answer.equals("n") || answer.equals("register")) {
+                JMPL.currentUser = createPerson();
+                JMPL.people.add(JMPL.currentUser);
+                System.out.printf("\nYou account has been created:\n\n" + JMPL.currentUser + "\n");
+            }
+            
+            // now everyone should be "logged in" and have an account
+            do {
                 
-                if (!(JMPL.currentUser.possessions.isEmpty())) //is not empty
+                // program option (inventory, chekout, or exit)
+                System.out.print("\nWould you like to see your inventory ('current'), check out a new item ('search'), or exit the program ('exit')? "); //**this feels really weirdly worded, anyone can change this if they feel like it
+                answer = sc.nextLine().toLowerCase();
+                
+                // error-catching
+                while (!(answer.equals("current")) && !(answer.equals("search")) && !(answer.equals("exit")))
                 {
-                    System.out.print("\nWould you like to return one of your items? (y/n) ");
+                    System.out.print("Please enter a valid term: ");
+                    answer = sc.nextLine().toLowerCase();
+                }
+            
+                // access library
+                if (answer.equals("search")) {
+                     
+                    // check if genre input is valid (if it exists)
+                    boolean valid = false; 
+                    
+                    // ask whether user wants to filter search
+                    System.out.println();
+                    System.out.print("Would you like to search by filter? (y/n) ");
                     answer = sc.nextLine().toLowerCase();
                     
+                    // error-catching
                     while (!(answer.equals("y")) && !(answer.equals("n")))
                     {
-                        System.out.print("Please enter 'y' or 'n': ");
+                        System.out.print("Please answer 'y' or 'n': ");
                         answer = sc.nextLine().toLowerCase();
                     }
-                    
-                    if (answer.equals("y"))
+                    //if they don't want a filtered search, print out the collection    
+                    if (answer.equals("n"))
                     {
-                        for (int i = 0; i < JMPL.currentUser.possessions.size(); i++)
+                        //print the entire collection, ask user to pick one, put in "checked out"
+                        System.out.println();
+                        JMPL.printCollection();
+                    }
+                    //if they do want a filtered search
+                    else if(answer.equals("y"))
+                    {
+                        System.out.print("\nHow would you like to filter by 'genre' or by 'type': ");
+                        answer = sc.nextLine().toLowerCase();
+                        //looping until a valid answer is provided
+                        while (!(answer.equals("genre")) && !(answer.equals("type")))
                         {
-                            System.out.println("\nItem " + (i + 1) + ":\n\n" + JMPL.currentUser.possessions.get(i));
+                            System.out.print("Please submit a valid answer('genre' or 'type'): ");
+                            answer = sc.nextLine().toLowerCase();
+                        }
+                        //sort by genre
+                        if (answer.equals("genre"))
+                        {
+                            System.out.print("What genre would you like to sort by? ");
+                            answer = sc.nextLine();
+                            System.out.println();
+                            valid = JMPL.printFilteredCollection(answer);
+                        }
+                        //sort by type of media
+                        else if(answer.equals("type"))
+                        {
+                            System.out.print(sortByMedia(JMPL.collection));
+                        }
+                    }
+                    
+                    // check genre input's validity
+                    if(valid) {
+                                
+                        // ask for the item that the user wants to borrow
+                        System.out.print("\nWhich item would you like to borrow? ");
+                        answer = sc.nextLine();
+                        
+                        // error-catching (existing item or not)
+                        while (JMPL.findMedia(answer) == null)
+                        {
+                            System.out.print("No item was found under this title, please try again: ");
+                            answer = sc.nextLine();
                         }
                         
-                        System.out.print("\nPlease enter the number that corresponds with the item you would like to return: ");;
-                        int answerNum = sc.nextInt();
-                        sc.nextLine(); //scanner bug
+                        // checkout
+                        JMPL.checkOut(JMPL.findMedia(answer), JMPL.currentUser); 
                         
-                        while (answerNum < 0 || answerNum > JMPL.currentUser.possessions.size())
+                    }
+                    
+                }
+                // see user's inventory
+                else if (answer.equals("current"))
+                {
+                    
+                    // output user's info
+                    System.out.println("\n" + JMPL.currentUser);
+                    
+                    // check whether user can return items (whether they have one/some)
+                    if (!JMPL.currentUser.possessions.isEmpty()) 
+                    {
+                        System.out.print("\nWould you like to return one of your items? (y/n) ");
+                        answer = sc.nextLine().toLowerCase();
+                        
+                        while (!(answer.equals("y")) && !(answer.equals("n")))
                         {
-                            System.out.print("Please enter a valid number: ");
-                            answerNum = sc.nextInt();
-                            sc.nextLine();
+                            System.out.print("Please enter 'y' or 'n': ");
+                            answer = sc.nextLine().toLowerCase();
                         }
                         
-                        JMPL.returnBook(JMPL.currentUser.possessions.get(answerNum - 1), JMPL.currentUser); //returns item
+                        if (answer.equals("y"))
+                        {
+                            for (int i = 0; i < JMPL.currentUser.possessions.size(); i++)
+                            {
+                                System.out.println("\nItem " + (i + 1) + ":\n\n" + JMPL.currentUser.possessions.get(i));
+                            }
+                            
+                            System.out.print("\nPlease enter the number that corresponds with the item you would like to return: ");;
+                            int answerNum = sc.nextInt();
+                            sc.nextLine(); //scanner bug
+                            
+                            while (answerNum < 0 || answerNum > JMPL.currentUser.possessions.size())
+                            {
+                                System.out.print("Please enter a valid number: ");
+                                answerNum = sc.nextInt();
+                                sc.nextLine();
+                            }
+                            
+                            JMPL.returnBook(JMPL.currentUser.possessions.get(answerNum - 1), JMPL.currentUser); //returns item
+                        }
+                        else
+                        {
+                            System.out.println("\nCome back to return items later.");
+                        }
                     }
                     else
                     {
-                        System.out.println("\nCome back to return items later.");
+                        System.out.println("\nYou have no items currently checked out.");
                     }
                 }
-                else
-                {
-                    System.out.println("\nYou have no items currently checked out.");
-                }
-            }
+                
+            } while (!(answer.equals("exit")));
             
-        } while (!(answer.equals("exit")));
-        
-        System.out.print("\nNext person? (y/n) ");
-        if (sc.nextLine().toLowerCase().equals("n")) {
-            break;
+            // proceed to next user
+            System.out.print("\nNext person? (y/n) ");
+            if (sc.nextLine().toLowerCase().equals("n")) 
+                break;
+            else 
+                System.out.println();
+            
         }
-        else {
-            System.out.println();
-        }
-        
     }
-}
 }
