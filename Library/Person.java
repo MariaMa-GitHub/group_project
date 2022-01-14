@@ -31,9 +31,9 @@ public class Person {
     }
     
     // check whether person requested something based on the title provided
-    public boolean findRequest(String target) {
-    	for (Media item : requests) {
-            if (item.title.equals(target)) {
+    public boolean findRequest(Media target) {
+        for (Media item : requests) {
+            if (item.equals(target)) {
                 return true; //match found
             }
         }
@@ -41,9 +41,9 @@ public class Person {
     }
     
     // check whether person possesses something based on the title provided
-    public boolean findPossession(String target) {
-    	for (Media item : possessions) {
-            if (item.title.equals(target)) {
+    public boolean findPossession(Media target) {
+        for (Media item : possessions) {
+            if (item.equals(target)) {
                 return true; //match found
             }
         }
@@ -51,9 +51,9 @@ public class Person {
     }
     
     // get a list of all the items that the person has borrowed
-    public String getPossessionList() {
+    public String getItemList(ArrayList<Media> items) {
         String itemList = "";
-        for (Media item : possessions) {
+        for (Media item : items) {
             itemList += item.title + ", ";
         }
         return (itemList + " ").replace(",  ", "");
@@ -61,7 +61,7 @@ public class Person {
     
     // output information about person
     public String toString() {
-        return String.format("Information about %s:\n\n- Age: %d\n- Library Card Number: %d\n- Possessions: %s", this.name,
-        this.age, this.cardNum, getPossessionList());
+        return String.format("Information about %s:\n\n- Age: %d\n- Library Card Number: %d\n- Possessions: %s\n- Requests: %s", this.name,
+        this.age, this.cardNum, getItemList(this.possessions), getItemList(this.requests));
     }
 }
