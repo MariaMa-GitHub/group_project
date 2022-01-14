@@ -173,7 +173,7 @@ public class Library
         
         return null; //no match found
     }
-    public void printFilteredCollection(String chosenGenre){
+    public boolean printFilteredCollection(String chosenGenre){
         int counter = 0;
         for (Media m : this.collection)
         {
@@ -185,7 +185,11 @@ public class Library
         }
         if(counter == 0){
                     System.out.println("There is no media that meet your requirements.");
+                    return false;
                 }
+        else{
+            return true;
+        }
     }
     public static String sortByMedia(ArrayList<Media> m){
         String s1 = "";
@@ -222,16 +226,16 @@ public class Library
     //methods to hardcode collection & people
     public static void populateCollection(ArrayList<Media> col)
     {
-        col.add(new Novel("Goblet of Fire", "Bloomsbury Publishing", "Fantasy", true, new Queue(), "J. K. Rowling", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
-        col.add(new Novel("The Lightning Thief", "Miramax Books", "Fantasy", true, new Queue(), "Rick Riordan", 700)); //Book 2
-        col.add(new Audiobooks("Dune", "Holtzbrinck Publishing Group", "Fantasy", true, new Queue(), "Frank Herbert", 1200)); //AudioBook 1
-        col.add(new VideoGames("It Takes Two", "Hazelight Studios", "Action", true, new Queue(), "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
-        col.add(new Novel("Pride and Prejudice", "Modern Library", "Romance", true, new Queue(), "Jane Austen", 400)); //Book 3
-        col.add(new Audiobooks("Outlander", "Recorded Books", "Fantasy", true, new Queue(), "Diana Gabaldon", 7420));
-        col.add(new Audiobooks("One Plus One", "Penguin Audio", "Romance", true, new Queue(), "Jojo Moyes", 5600));
-        col.add(new VideoGames("Red Dead Redemption 2", "Rockstar Games", "Action", true, new Queue(), "18+", "XBox"));
-        col.add(new Novel("Sherlock Holmes", "Bramhall House", "Mystery", true, new Queue(), "William S. Baring-Gould", 250));
-        col.add(new VideoGames("Super Mario Bros", "Nintendo", "Platformer", true, new Queue(), "E", "Nintendo Switch"));
+        col.add(new Novel("Goblet of Fire", "Bloomsbury Publishing", "fantasy", true, new Queue(), "J. K. Rowling", 500)); //first Novel **reminder, to talk about the "new Queue()" tomorrow
+        col.add(new Novel("The Lightning Thief", "Miramax Books", "fantasy", true, new Queue(), "Rick Riordan", 700)); //Book 2
+        col.add(new Audiobooks("Dune", "Holtzbrinck Publishing Group", "fantasy", true, new Queue(), "Frank Herbert", 1200)); //AudioBook 1
+        col.add(new VideoGames("It Takes Two", "Hazelight Studios", "action", true, new Queue(), "Teen", "PS4")); //Game 1 **do we want to change the "rating" to a char?
+        col.add(new Novel("Pride and Prejudice", "Modern Library", "romance", true, new Queue(), "Jane Austen", 400)); //Book 3
+        col.add(new Audiobooks("Outlander", "Recorded Books", "fantasy", true, new Queue(), "Diana Gabaldon", 7420));
+        col.add(new Audiobooks("One Plus One", "Penguin Audio", "romance", true, new Queue(), "Jojo Moyes", 5600));
+        col.add(new VideoGames("Red Dead Redemption 2", "Rockstar Games", "action", true, new Queue(), "18+", "XBox"));
+        col.add(new Novel("Sherlock Holmes", "Bramhall House", "mystery", true, new Queue(), "William S. Baring-Gould", 250));
+        col.add(new VideoGames("Super Mario Bros", "Nintendo", "platformer", true, new Queue(), "E", "Nintendo Switch"));
     }
     public static void populatePeople(ArrayList<Person> peop)
     {
@@ -321,6 +325,7 @@ public class Library
             //"access library"
             if (answer.equals("search"))
             {
+                boolean valid = false;
                 //print the entire collection, ask user to pick one, put in "checked out"
                 System.out.println();
                 // JMPL.printCollection();
@@ -355,9 +360,9 @@ public class Library
                                         if (answer.equals("genre"))
                                     {
                                         System.out.print("What genre would you like to sort by? ");
-                                        answer = sc.nextLine();
+                                        answer = sc.nextLine().toLowerCase();
                                         System.out.println();
-                                        JMPL.printFilteredCollection(answer);
+                                        valid = JMPL.printFilteredCollection(answer);
                                     }
             //sort by type of media
                                         else if(answer.equals("type"))
@@ -365,7 +370,8 @@ public class Library
                                         System.out.print(sortByMedia(JMPL.collection));
                                     }
                             }
-                            
+                    if(valid == true)
+                    {
                 System.out.print("\nWhich item would you like to borrow? ");
                 answer = sc.nextLine();
                 
@@ -376,6 +382,8 @@ public class Library
                 }
                 
                 JMPL.checkOut(JMPL.findMedia(answer), JMPL.currentUser); //will do the rest of the work
+                    }
+                
             }
             else if (answer.equals("current"))
             {
