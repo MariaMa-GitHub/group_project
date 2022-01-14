@@ -22,7 +22,7 @@ public class VideoGames extends Media
     }
     //to string method
     public String toString(){
-       return super.toString() + String.format("Rating: %s\ncompatibility: %s", this.rating, this.compatibility);
+       return super.toString() + String.format("Rating: %s\nCompatibility: %s", this.rating, this.compatibility);
     }
     //equals method
     public boolean equals(VideoGames v){
