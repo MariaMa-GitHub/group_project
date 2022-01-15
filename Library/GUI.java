@@ -6,7 +6,6 @@
  * Jan 13, 2021
  *
  */
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -101,11 +100,11 @@ public class GUI implements ActionListener
 		}
 		else if (this.lib.currentUser.findPossession(m)) //if the user already has current item
         {
-            System.out.printf("\nSorry, you already have %s checked out. You cannot currently put this on hold.\n", m.title);
+			JOptionPane.showMessageDialog(null, "Sorry, you already have " + m.title + " checked out. You cannot currently put this on hold.");
         }
         else if (this.lib.currentUser.findRequest(m)) //if the user already requested for the current item
         {
-            System.out.printf("\nSorry, you are already waiting in line for %s. You cannot currently put this on hold.\n", m.title);
+        	JOptionPane.showMessageDialog(null, "Sorry, you are already waiting in line for  " + m.title + ". You cannot currently put this on hold.");
         }
 		else //not available, put Person in queue
 		{
@@ -146,8 +145,7 @@ public class GUI implements ActionListener
 				
 		this.rulesText = new JTextArea();
 		this.rules.add(this.rulesText);
-		this.rulesText.setText("Simulates a library that can hold many different types of Media (novels, audiobooks, video games). The library can buy new books for its collection, and people (Person class) are able to check books out, or if they're unavailable, put them on hold. A queue is then formed for that Media and they must wait until they are able to check out the Media. The Media class itself is a superclass for three subclasses, Novel, Audiobook/eBook and VideoGame. And finally, a person can get a library card and has their own 'check out' array that holds (up to x Media)."); //this is just for now, will be different later
-		this.rulesText.setBackground(Color.white);
+		this.rulesText.setText("                    Welcome to the library!\nAs your go through the library, many of the steps are \nexplained however, in the library you can:\n --> Create a new account or sign into your account,\n --> Search items by title or by filter,\n --> Put items on hold\n --> Return any items, and\n --> Log out of your account.\nHappy reading! ");
 		this.rulesText.setEditable(false);
 		this.rulesText.setLineWrap(true);
 		this.rulesText.setLocation(25, 25);
@@ -397,7 +395,7 @@ public class GUI implements ActionListener
 		}
 		else if (e.getSource() == this.signUpButton)
 		{
-			this.lib.currentUser = this.lib.createPerson2(this.signUpTextName.getText().trim(), Short.parseShort(this.signUpTextAge.getText()));
+			this.lib.currentUser = this.lib.createPerson(this.signUpTextName.getText().trim(), Short.parseShort(this.signUpTextAge.getText()));
 			JOptionPane.showMessageDialog(null, "Your card number is: " + this.lib.currentUser.cardNum + ". Please don't forget it!");
 			this.signUp.setVisible(false);
 			this.createLibrary();
