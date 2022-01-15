@@ -6,8 +6,6 @@
  * Bashir Kadri
  * Jan 11, 2022
  */
-
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Library 
@@ -18,9 +16,6 @@ public class Library
 	String name;
 	String address;
 	static int totalUsers = 0;
-	
-	//open Scanner
-	Scanner input = new Scanner(System.in);
 	
 	public Library()
 	{
@@ -39,62 +34,6 @@ public class Library
 		this.name = name;
 		this.address = address;
 	}
-	
-	/*
-	 * public void printCollection() { //just print all the titles of all the items
-	 * for (Media m : this.collection) { System.out.println(m.title); } } public
-	 * void checkOut(Media m, Person p) { //**we can discuss this later, but this is
-	 * how I think the program will work, tell me if we want to do it differently
-	 * String response = "";
-	 * 
-	 * //Check if the current Media is available or not if (m.availability) //is
-	 * available {
-	 * 
-	 * // video game age rating error checking if(m.id == 3){ if(p.age <
-	 * ((VideoGames)m).rating){
-	 * System.out.println("\nThis rating is not compatible for your age!"); } } //If
-	 * available, check if the Person has enough room to borrow the book else if
-	 * (p.possessions.size() < p.MAX_POSSESSIONS) {
-	 * 
-	 * System.out.println("\nInformation about the item:\n\n" + m);
-	 * 
-	 * // if video game, check age rating
-	 * 
-	 * //ask user if they want to check it out do { System.out.
-	 * printf("\n%s is available, would you like to borrow this item? (y/n) ",
-	 * m.title); response = input.nextLine().toLowerCase(); } while
-	 * (response.equals("y") && response.equals("n"));
-	 * 
-	 * //and then finally, if they answer yes, add to their checked out items and
-	 * change the Media's availability if (response.equals("y")) {
-	 * System.out.printf("\nYou have succesfully checked out %s.\n", m.title);
-	 * p.possessions.add(m); m.availability = false; } else if
-	 * (response.equals("n")) //nothing changes, give them some message {
-	 * System.out.printf("\n%s has not been checked out.\n", m.title); }
-	 * 
-	 * } else //item is available, but their "cart" is full, give some message {
-	 * System.out.
-	 * println("\nSorry, you have too many items currently checked out. Please try again another time."
-	 * ); } } else if (currentUser.findPossession(m)) //if the user already has
-	 * current item { System.out.
-	 * printf("\nSorry, you already have %s checked out. You cannot currently put this on hold.\n"
-	 * , m.title); } else if (currentUser.findRequest(m)) //if the user already
-	 * requested for the current item { System.out.
-	 * printf("\nSorry, you are already waiting in line for %s. You cannot currently put this on hold.\n"
-	 * , m.title); } else { do { System.out.
-	 * printf("\nSorry, %s is not available, would you like to put this item on hold? (y/n) "
-	 * , m.title); response = input.nextLine().toLowerCase(); } while
-	 * (!response.equals("y") && !response.equals("n"));
-	 * 
-	 * //and then finally, if they answer yes, add them to queue, if no, do nothing
-	 * if (response.equals("y")) {
-	 * System.out.printf("You have succesfully been added to the queue for %s.\n",
-	 * m.title); m.hold.enQueue(p); currentUser.requests.add(m); } else if
-	 * (response.equals("n")) //nothing changes, give them some message {
-	 * System.out.printf("%s has not been added to the queue.\n", m.title); } }
-	 * 
-	 * }
-	 */
 	public void returnBook(Media m, Person p)
 	{
         //this should be simpler, to return a book just change availability, 
@@ -120,25 +59,24 @@ public class Library
 	//helper methods
 	public Person findPerson(int target)
 	{
-		for (int i = 0; i < this.people.size(); i++)
+		for (Person person : this.people)
 		{
-			if (this.people.get(i).cardNum == target)
+			if (person.cardNum == target)
 			{
-				return this.people.get(i);
+				return person;
 			}
 		}
 		return null; //no match found
 	}
 	public Media findMedia(String target)
 	{
-		for (int i = 0; i < this.collection.size(); i++)
+		for (Media item : this.collection)
 		{
-			if (this.collection.get(i).title.equals(target))
+			if (item.title.equals(target))
 			{
-				return this.collection.get(i);
+				return item;
 			}
 		}
-		
 		return null; //no match found
 	}
 
@@ -182,18 +120,7 @@ public class Library
          String ans = "\nAUDIOBOOKS:\n" + s1 + "\nNOVELS:\n" + s2 + "\nVIDEO GAMES:\n" + s3;
          return ans;
     }
-    
-	/*
-	 * public static Person createPerson() { Scanner sc = new Scanner(System.in);
-	 * 
-	 * System.out.print("\nCreate a library card:");
-	 * System.out.print("\nWhat is your name? "); String name = sc.nextLine();
-	 * System.out.print("\nHow old are you? "); short age = sc.nextShort();
-	 * sc.nextLine();
-	 * 
-	 * return new Person(name, age); }
-	 */
-	public Person createPerson2(String name, short age) //just creating a secondary method for now, once everything is done we can delete the original and rename this
+	public Person createPerson(String name, short age) //just creating a secondary method for now, once everything is done we can delete the original and rename this
 	{
 		Person p = new Person(name, age);
 		this.people.add(p);
@@ -222,9 +149,6 @@ public class Library
 	
 	public static void main(String[] args)
 	{
-		 
-		Scanner sc = new Scanner(System.in);
-		
 		Library JMPL = new Library("John McCrae Public Library", "123 Internet Road");
 		
 		//hard code 10 pre-existing Media inside the library
@@ -233,89 +157,5 @@ public class Library
 		populatePeople(JMPL.people);
 		
 		new GUI(JMPL);
-		
-		
-		/*
-		 * System.out.
-		 * printf("Welcome to %s!\n--------------\nDo you already have an account? (y/n)\n"
-		 * , JMPL.name); String answer = sc.nextLine();
-		 * 
-		 * //repeat until valid answer is given while (!(answer.equals("y")) &&
-		 * !(answer.equals("n"))) { System.out.println("Please answer 'y' or 'n'.");
-		 * answer = sc.nextLine(); }
-		 * 
-		 * if (answer.equals("y")) //they already have an account, ie. cardNum {
-		 * System.out.println("Great! Please enter your library card number."); answer =
-		 * sc.nextLine();
-		 * 
-		 * while (JMPL.findPerson(Integer.parseInt(answer)) == null) { System.out.
-		 * println("No person was found under this card number, please try again. If you need to create an account, type 'exit'"
-		 * ); answer = sc.nextLine();
-		 * 
-		 * if (answer.equals("exit")) { break; //exit loop } } if
-		 * (JMPL.findPerson(Integer.parseInt(answer)) != null) //a match was found {
-		 * JMPL.currentUser = JMPL.findPerson(Integer.parseInt(answer)); } }
-		 * 
-		 * //at this point of the code "answer" will equal one of three things: //yes:
-		 * they have an account and are logged in //no: they do NOT have an account
-		 * //exit: they do NOT have an account if (answer.equals("n") ||
-		 * answer.equals("exit")) { JMPL.currentUser = createPerson();
-		 * JMPL.people.add(JMPL.currentUser);
-		 * System.out.printf("Welcome %s, your library card number is: %d",
-		 * JMPL.currentUser, JMPL.currentUser.cardNum); }
-		 * 
-		 * //now everyone should be "logged in" and have an account
-		 * 
-		 * do { System.out.
-		 * println("If you would ever like to end the program, please type 'end'.");
-		 * System.out.
-		 * println("Would you like to see the items you currently have checked out ('current') or check out a new item ('search')?"
-		 * ); //**this feels really weirdly worded, anyone can change this if they feel
-		 * like it answer = sc.nextLine();
-		 * 
-		 * while (!(answer.equals("current")) && !(answer.equals("search")) &&
-		 * !(answer.equals("end"))) { System.out.println("Please enter a valid term.");
-		 * answer = sc.nextLine(); }
-		 * 
-		 * //"access library" if (answer.equals("search")) { //print the entire
-		 * collection, ask user to pick one, put in "checked out"
-		 * JMPL.printCollection();
-		 * System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=\nWhich item would you like?");
-		 * answer = sc.nextLine();
-		 * 
-		 * while (JMPL.findMedia(answer) == null) {
-		 * System.out.println("No item was found under this title, please try again.");
-		 * answer = sc.nextLine(); }
-		 * 
-		 * JMPL.checkOut(JMPL.findMedia(answer), JMPL.currentUser); //will do the rest
-		 * of the work } else if (answer.equals("current")) {
-		 * System.out.println(JMPL.currentUser);
-		 * 
-		 * if (!(JMPL.currentUser.possessions.isEmpty())) //is not empty {
-		 * System.out.println("Would you like to reutrn one of your items? (y/n)");
-		 * answer = sc.nextLine();
-		 * 
-		 * while (!(answer.equals("y")) && !(answer.equals("n"))) {
-		 * System.out.println("Please enter 'y' or 'n'."); answer = sc.nextLine(); }
-		 * 
-		 * if (answer.equals("yes")) { for (int i = 0; i <
-		 * JMPL.currentUser.possessions.size(); i++) { System.out.println((i + 1) + ": "
-		 * + JMPL.currentUser.possessions.get(i) + "\n--------------"); }
-		 * 
-		 * System.out.
-		 * println("Please enter the number that corresponds with the item you would like to return"
-		 * );; int answerNum = sc.nextInt(); sc.nextLine(); //scanner bug
-		 * 
-		 * while (answerNum < 0 || answerNum > JMPL.currentUser.possessions.size()) {
-		 * System.out.println("Please enter a valid number"); answerNum = sc.nextInt();
-		 * }
-		 * 
-		 * JMPL.returnBook(JMPL.currentUser.possessions.get(answerNum - 1),
-		 * JMPL.currentUser); //returns item } else {
-		 * System.out.println("Come back to return items later."); } } else {
-		 * System.out.println("You have no items currently checked out."); } }
-		 * 
-		 * } while (!(answer.equals("end")));
-		 */
 	}
 }
